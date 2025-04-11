@@ -3,135 +3,166 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Preet Patel Portfolio</title>
+  <title>Preet Patel – Portfolio</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
   <style>
     html { scroll-behavior: smooth; }
-    .snap-x { scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; }
-    .snap-center { scroll-snap-align: center; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    }
+    header.sticky {
+      transition: all 0.3s ease;
+    }
+    header.sticky.scrolled {
+      background-color: #0a0a0a;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.5);
+    }
+    .parallax-hero {
+      background-image: url('portrait.jpg');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+    }
   </style>
 </head>
-<body class="bg-black text-white font-sans">
+<body class="bg-black text-white">
 
-<header class="fixed w-full z-10 backdrop-blur-md bg-black/80 border-b border-white/20 py-4 px-6 sm:px-10 flex flex-col sm:flex-row justify-between items-center">
-  <h1 class="text-xl font-semibold tracking-tight">PREET PATEL</h1>
-  <nav class="flex flex-wrap gap-4 text-sm items-center justify-center sm:justify-end mt-4 sm:mt-0">
-    <a href="#about" class="hover:underline">About</a>
-    <a href="#projects" class="hover:underline">Projects</a>
-    <a href="#experience" class="hover:underline">Experience</a>
-    <a href="#education" class="hover:underline">Education</a>
-    <a href="#contact" class="hover:underline">Contact</a>
-    <button id="modeToggle" class="px-3 py-1 border rounded-full text-xs">☀️ Light</button>
+<header id="site-header" class="w-full fixed top-0 z-10 bg-black/80 backdrop-blur border-b border-white/20 px-6 sm:px-10 py-4 flex justify-between items-center sticky">
+  <h1 class="text-xl sm:text-2xl font-semibold tracking-tight">PREET PATEL</h1>
+  <nav class="flex gap-6 text-sm font-medium items-center">
+    <a href="#about" class="hover:text-gray-400">About</a>
+    <a href="#skills" class="hover:text-gray-400">Skills</a>
+    <a href="#projects" class="hover:text-gray-400">Projects</a>
+    <a href="#experience" class="hover:text-gray-400">Experience</a>
+    <a href="#education" class="hover:text-gray-400">Education</a>
+    <a href="#contact" class="hover:text-gray-400">Contact</a>
   </nav>
 </header>
 
-<main id="about" class="min-h-screen flex flex-col items-center justify-center text-center px-4 pt-36 sm:pt-40">
-  <h2 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-semibold leading-tight max-w-4xl">Creativity meets clean</h2>
-  <h2 class="text-4xl sm:text-5xl md:text-6xl font-bold bg-gradient-to-r from-cyan-300 via-purple-400 to-orange-300 text-transparent bg-clip-text">code.</h2>
-  <p class="mt-6 text-base sm:text-lg max-w-xl text-gray-400">
-    I'm a software engineer focused on building elegant digital experiences through modern technologies.
+<main id="about" class="min-h-screen parallax-hero flex flex-col items-center justify-center text-center px-6 pt-40 text-white">
+  <h2 data-aos="fade-down" class="text-4xl sm:text-6xl font-semibold max-w-4xl leading-tight drop-shadow-lg">Creativity meets clean</h2>
+  <h2 data-aos="fade-up" class="text-4xl sm:text-6xl font-bold bg-gradient-to-r from-cyan-300 via-purple-500 to-orange-400 text-transparent bg-clip-text drop-shadow-lg mt-2">
+    code.
+  </h2>
+  <p data-aos="fade-in" class="mt-6 text-lg sm:text-xl text-white max-w-xl drop-shadow">
+    I'm a software engineer focused on crafting elegant and intuitive digital experiences.
   </p>
-  <img src="portrait.png" alt="MacBook 3D" class="w-40 sm:w-60 md:w-72 mt-10 rounded-full border-4 border-white mx-auto">
+  <img src="portrait.png" alt="Preet Patel" class="mt-10 w-64 h-64 rounded-full object-cover border-4 border-white" />
 </main>
 
-<section class="bg-neutral-900 text-white py-16 sm:py-20 px-4 sm:px-6 text-center">
-  <h3 class="text-3xl sm:text-4xl font-semibold mb-6">Skills</h3>
-  <div class="text-sm max-w-4xl mx-auto space-y-4 text-gray-300">
-    <div><strong>Languages & Tools:</strong> C#, Python, C++, Java, R, SQL, Excel</div>
-    <div><strong>Backend & Systems:</strong> REST APIs, Microservices, Docker, CI/CD, Backend Development, AWS</div>
-    <div><strong>Machine Learning & Data:</strong> Machine Learning, GPU Programming, Database Systems</div>
-    <div><strong>Architecture & Patterns:</strong> Computer Architecture, x86 Systems, TDD</div>
-    <div><strong>Other Skills:</strong> Troubleshooting, Performance Tuning</div>
-    <a href="Preet_Patel_Resume.pdf" download class="inline-block mt-4 px-6 py-2 border rounded-full hover:bg-white hover:text-black transition">📄 Download Resume</a>
+<section id="skills" class="bg-[#0f0f0f] py-20 px-6 text-center">
+  <h3 class="text-3xl sm:text-4xl font-semibold mb-6" data-aos="fade-up">Skills</h3>
+  <div class="max-w-4xl mx-auto text-gray-300 text-base leading-relaxed space-y-4" data-aos="fade-up">
+    <p><strong>Languages & Tools:</strong> C#, Python, C++, Java, R, SQL, Excel</p>
+    <p><strong>Backend & Systems:</strong> REST APIs, Microservices, Docker, CI/CD, AWS, EC2, Lambda</p>
+    <p><strong>Machine Learning:</strong> GPU Programming, Data Ingestion, Model Optimization</p>
+    <p><strong>Architecture:</strong> x86, TDD, Design Patterns, Problem Solving</p>
+    <p><strong>Other:</strong> Troubleshooting, Performance Tuning</p>
+    <a href="Preet_Patel_Resume.pdf" download class="inline-block mt-6 px-6 py-2 bg-white text-black rounded-full hover:bg-gray-200 transition">📄 Download Resume</a>
   </div>
 </section>
 
-<section id="projects" class="py-16 sm:py-24 px-4 sm:px-6 max-w-7xl mx-auto text-center">
-  <h2 class="text-3xl font-bold mb-10">Projects</h2>
-  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-    <div class="bg-gray-800 rounded-xl p-4">
-      <img src="project1.png" class="w-full h-56 object-cover mb-4 rounded" alt="Project 0">
-      <h3 class="text-lg font-semibold">AI-Based Vehicle Monitoring</h3>
-      <p class="text-gray-400 text-sm">Detects driver drowsiness using OpenCV + Python, 95% accuracy on live feeds.</p>
+<section id="projects" class="py-20 px-6 max-w-7xl mx-auto text-center">
+  <h2 class="text-3xl sm:text-4xl font-bold mb-12" data-aos="fade-up">Projects</h2>
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+    <div class="rounded-xl overflow-hidden shadow border border-white/10 bg-[#121212]" data-aos="fade-up">
+      <img src="project1.png" class="w-full h-52 object-cover" alt="Project 1" />
+      <div class="p-6 text-left">
+        <h3 class="text-lg font-semibold">AI-Based Vehicle Monitoring</h3>
+        <p class="text-gray-400 text-sm mt-2">Detects driver drowsiness using OpenCV + Python with 95% accuracy.</p>
+      </div>
     </div>
-    <div class="bg-gray-800 rounded-xl p-4">
-      <img src="project2.png" class="w-full h-56 object-cover mb-4 rounded" alt="Project 1">
-      <h3 class="text-lg font-semibold">Food Calorie Estimator</h3>
-      <p class="text-gray-400 text-sm">Cross-platform app using Flutter + PyTorch for calorie estimation from food images.</p>
+    <div class="rounded-xl overflow-hidden shadow border border-white/10 bg-[#121212]" data-aos="fade-up" data-aos-delay="100">
+      <img src="project2.png" class="w-full h-52 object-cover" alt="Project 2" />
+      <div class="p-6 text-left">
+        <h3 class="text-lg font-semibold">Food Calorie Estimator</h3>
+        <p class="text-gray-400 text-sm mt-2">Flutter + PyTorch app for food image-based calorie estimation.</p>
+      </div>
     </div>
-    <div class="bg-gray-800 rounded-xl p-4">
-      <img src="project3.png" class="w-full h-56 object-cover mb-4 rounded" alt="Project 2">
-      <h3 class="text-lg font-semibold">PaperCupPro Inventory System</h3>
-      <p class="text-gray-400 text-sm">Inventory + staff scheduling system for paper cup business. Reduced manual effort by 30%.</p>
+    <div class="rounded-xl overflow-hidden shadow border border-white/10 bg-[#121212]" data-aos="fade-up" data-aos-delay="200">
+      <img src="project3.png" class="w-full h-52 object-cover" alt="Project 3" />
+      <div class="p-6 text-left">
+        <h3 class="text-lg font-semibold">PaperCupPro Inventory System</h3>
+        <p class="text-gray-400 text-sm mt-2">Automated inventory & staff scheduling for a paper cup business.</p>
+      </div>
     </div>
   </div>
 </section>
 
-<section id="experience" class="py-16 sm:py-24 px-4 sm:px-6 max-w-4xl mx-auto">
-  <h2 class="text-3xl font-bold mb-10 text-center">Experience</h2>
-  <div class="space-y-10 text-left">
-    <div>
-      <h3 class="text-xl font-semibold">Software Development Intern – Ocean Shark LLC</h3>
-      <p class="text-sm text-gray-400">June 2024 – Aug. 2024, Feb. 2025 – Present</p>
-      <ul class="list-disc list-inside text-gray-300 text-sm">
-        <li>Built web platforms with Node.js, Express, and AWS.</li>
-        <li>Implemented microservices and AI-powered dashboards.</li>
-        <li>Improved engagement by 35% via personalization.</li>
+<section id="experience" class="py-20 px-6 max-w-4xl mx-auto">
+  <h2 class="text-3xl sm:text-4xl font-bold mb-10 text-center" data-aos="fade-up">Experience</h2>
+  <div class="space-y-10 text-left text-gray-300 text-sm leading-relaxed">
+    <div data-aos="fade-up">
+      <h3 class="text-lg font-semibold">Software Development Intern – Ocean Shark LLC</h3>
+      <p class="text-gray-400">June 2024 – Aug. 2024, Feb. 2025 – Present</p>
+      <ul class="list-disc list-inside mt-2">
+        <li>Built scalable platforms using Node.js, Express, and AWS.</li>
+        <li>Automated CI/CD pipelines and real-time dashboards with AI integration.</li>
+        <li>Enhanced user engagement by 35% through personalized recommendations.</li>
       </ul>
     </div>
-    <div>
-      <h3 class="text-xl font-semibold">Machine Learning Intern – Bosch India</h3>
-      <p class="text-sm text-gray-400">June 2022 – Aug. 2022</p>
-      <ul class="list-disc list-inside text-gray-300 text-sm">
-        <li>Analyzed 100k+ energy data points to optimize power.</li>
-        <li>Created a bot to reduce audit workload by 40%.</li>
-        <li>Boosted machine efficiency by 25% with ML tuning.</li>
+    <div data-aos="fade-up" data-aos-delay="100">
+      <h3 class="text-lg font-semibold">Machine Learning Intern – Bosch India</h3>
+      <p class="text-gray-400">June 2022 – Aug. 2022</p>
+      <ul class="list-disc list-inside mt-2">
+        <li>Analyzed energy data to optimize power consumption in manufacturing plants.</li>
+        <li>Built a bot to reduce audit effort by 40% using ML insights.</li>
+        <li>Improved machine efficiency by 25% with model tuning.</li>
       </ul>
     </div>
-    <div>
-      <h3 class="text-xl font-semibold">Software Development Intern – Adaptable Services</h3>
-      <p class="text-sm text-gray-400">Jan. 2022 – Apr. 2022</p>
-      <ul class="list-disc list-inside text-gray-300 text-sm">
-        <li>Built a Flutter app for surveys, raised response rate 35%.</li>
-        <li>Cut data processing time by 50% via API integrations.</li>
+    <div data-aos="fade-up" data-aos-delay="200">
+      <h3 class="text-lg font-semibold">Software Development Intern – Adaptable Services</h3>
+      <p class="text-gray-400">Jan. 2022 – Apr. 2022</p>
+      <ul class="list-disc list-inside mt-2">
+        <li>Developed mobile survey app with Flutter, increasing response rate by 35%.</li>
+        <li>Integrated APIs to reduce data processing time by 50%.</li>
       </ul>
     </div>
   </div>
 </section>
 
-<section id="education" class="py-16 sm:py-24 px-4 sm:px-6 max-w-4xl mx-auto">
-  <h2 class="text-3xl font-bold mb-10 text-center">Education</h2>
-  <div class="space-y-8 text-left">
-    <div>
-      <h3 class="text-xl font-semibold">New York University</h3>
-      <p class="text-sm text-gray-400">M.S. in Computer Science (Sept 2023 – May 2025)</p>
-      <p class="text-gray-300">Brooklyn, NY</p>
+<section id="education" class="py-20 px-6 max-w-4xl mx-auto">
+  <h2 class="text-3xl sm:text-4xl font-bold mb-10 text-center" data-aos="fade-up">Education</h2>
+  <div class="space-y-8 text-left text-gray-300 text-sm leading-relaxed">
+    <div data-aos="fade-up">
+      <h3 class="text-lg font-semibold">New York University</h3>
+      <p class="text-gray-400">M.S. in Computer Science (Sept 2023 – May 2025)</p>
+      <p>Brooklyn, NY</p>
     </div>
-    <div>
-      <h3 class="text-xl font-semibold">SRM Institute of Science and Technology</h3>
-      <p class="text-sm text-gray-400">B.Tech in ECE (July 2019 – May 2023)</p>
-      <p class="text-gray-300">Chennai, India</p>
+    <div data-aos="fade-up" data-aos-delay="100">
+      <h3 class="text-lg font-semibold">SRM Institute of Science and Technology</h3>
+      <p class="text-gray-400">B.Tech in ECE (July 2019 – May 2023)</p>
+      <p>Chennai, India</p>
     </div>
   </div>
 </section>
 
-<section id="contact" class="py-16 sm:py-24 text-center px-4 sm:px-6">
-  <h2 class="text-3xl font-bold mb-6">Get in Touch</h2>
-  <p class="text-gray-400 mb-4">Let’s build something amazing together 🚀</p>
-  <div class="text-sm text-gray-300 space-y-2">
+<section id="contact" class="py-24 text-center px-6">
+  <h2 class="text-3xl font-bold mb-6" data-aos="fade-up">Get in Touch</h2>
+  <p class="text-gray-400 mb-4" data-aos="fade-up">Let’s build something amazing together 🚀</p>
+  <div class="text-sm text-gray-300 space-y-2" data-aos="fade-up">
     <p>📧 Email: <a href="mailto:preetpatel1726@gmail.com" class="underline hover:text-blue-400">preetpatel1726@gmail.com</a></p>
     <p>🔗 LinkedIn: <a href="https://linkedin.com/in/preet-patel2861" target="_blank" class="underline hover:text-blue-400">linkedin.com/in/preet-patel2861</a></p>
     <p>📞 Phone: <a href="tel:+19296427701" class="underline hover:text-blue-400">+1 (929) 642-7701</a></p>
   </div>
 </section>
 
-<footer class="text-center text-sm py-8 text-gray-500">&copy; 2025 Preet Patel. All rights reserved.</footer>
+<footer class="text-center text-sm text-gray-500 py-8 bg-black border-t border-white/10" data-aos="fade-in">
+  &copy; 2025 Preet Patel. All rights reserved.
+</footer>
 
+<script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
 <script>
-  document.getElementById("modeToggle").addEventListener("click", function() {
-    document.body.classList.toggle("bg-white");
-    document.body.classList.toggle("text-black");
+  AOS.init({ once: true });
+  window.addEventListener('scroll', () => {
+    const header = document.getElementById('site-header');
+    if (window.scrollY > 20) {
+      header.classList.add('scrolled');
+    } else {
+      header.classList.remove('scrolled');
+    }
   });
 </script>
 
