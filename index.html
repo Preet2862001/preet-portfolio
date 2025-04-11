@@ -14,9 +14,9 @@
 </head>
 <body class="bg-black text-white font-sans">
 
-<header class="fixed w-full z-10 backdrop-blur-md bg-black/80 border-b border-white/20 py-6 px-10 flex justify-between items-center">
+<header class="fixed w-full z-10 backdrop-blur-md bg-black/80 border-b border-white/20 py-4 px-6 sm:px-10 flex flex-col sm:flex-row justify-between items-center">
   <h1 class="text-xl font-semibold tracking-tight">PREET PATEL</h1>
-  <nav class="flex gap-8 text-sm font-medium items-center">
+  <nav class="flex flex-wrap gap-4 text-sm items-center justify-center sm:justify-end mt-4 sm:mt-0">
     <a href="#about" class="hover:underline">About</a>
     <a href="#projects" class="hover:underline">Projects</a>
     <a href="#experience" class="hover:underline">Experience</a>
@@ -26,17 +26,17 @@
   </nav>
 </header>
 
-<main id="about" class="min-h-screen flex flex-col items-center justify-center text-center px-6 pt-28">
-  <h2 class="text-6xl md:text-7xl font-semibold leading-tight max-w-4xl">Creativity meets clean</h2>
-  <h2 class="text-6xl font-bold bg-gradient-to-r from-cyan-300 via-purple-400 to-orange-300 text-transparent bg-clip-text">code.</h2>
-  <p class="mt-6 text-lg max-w-xl text-gray-400">
+<main id="about" class="min-h-screen flex flex-col items-center justify-center text-center px-4 pt-36 sm:pt-40">
+  <h2 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-semibold leading-tight max-w-4xl">Creativity meets clean</h2>
+  <h2 class="text-4xl sm:text-5xl md:text-6xl font-bold bg-gradient-to-r from-cyan-300 via-purple-400 to-orange-300 text-transparent bg-clip-text">code.</h2>
+  <p class="mt-6 text-base sm:text-lg max-w-xl text-gray-400">
     I'm a software engineer focused on building elegant digital experiences through modern technologies.
   </p>
-  <img src="portrait.png" alt="MacBook 3D" class="w-[300px] mt-12 rounded-full border-4 border-white">
+  <img src="portrait.jpg" alt="MacBook 3D" class="w-40 sm:w-60 md:w-72 mt-10 rounded-full border-4 border-white mx-auto">
 </main>
 
-<section class="bg-neutral-900 text-white py-20 px-6 text-center">
-  <h3 class="text-4xl font-semibold mb-4">Skills</h3>
+<section class="bg-neutral-900 text-white py-16 sm:py-20 px-4 sm:px-6 text-center">
+  <h3 class="text-3xl sm:text-4xl font-semibold mb-6">Skills</h3>
   <div class="text-sm max-w-4xl mx-auto space-y-4 text-gray-300">
     <div><strong>Languages & Tools:</strong> C#, Python, C++, Java, R, SQL, Excel</div>
     <div><strong>Backend & Systems:</strong> REST APIs, Microservices, Docker, CI/CD, Backend Development, AWS</div>
@@ -47,29 +47,29 @@
   </div>
 </section>
 
-<section id="projects" class="py-24 px-6 max-w-7xl mx-auto text-center">
-  <h2 class="text-3xl font-bold mb-8">Projects</h2>
-  <div class="flex gap-6 overflow-x-auto snap-x pb-4">
-    <div class="min-w-[80vw] snap-center shrink-0 bg-gray-800 rounded-xl p-4">
-      <img src="project1.png" class="w-full h-60 object-cover mb-4 rounded" alt="Project 0">
-      <h3 class="text-xl font-semibold">AI-Based Vehicle Monitoring</h3>
-      <p class="text-gray-400">Detects driver drowsiness using OpenCV + Python, 95% accuracy on live feeds.</p>
+<section id="projects" class="py-16 sm:py-24 px-4 sm:px-6 max-w-7xl mx-auto text-center">
+  <h2 class="text-3xl font-bold mb-10">Projects</h2>
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div class="bg-gray-800 rounded-xl p-4">
+      <img src="project1.png" class="w-full h-56 object-cover mb-4 rounded" alt="Project 0">
+      <h3 class="text-lg font-semibold">AI-Based Vehicle Monitoring</h3>
+      <p class="text-gray-400 text-sm">Detects driver drowsiness using OpenCV + Python, 95% accuracy on live feeds.</p>
     </div>
-    <div class="min-w-[80vw] snap-center shrink-0 bg-gray-800 rounded-xl p-4">
-      <img src="project2.png" class="w-full h-60 object-cover mb-4 rounded" alt="Project 1">
-      <h3 class="text-xl font-semibold">Food Calorie Estimator</h3>
-      <p class="text-gray-400">Cross-platform app using Flutter + PyTorch for calorie estimation from food images.</p>
+    <div class="bg-gray-800 rounded-xl p-4">
+      <img src="project2.png" class="w-full h-56 object-cover mb-4 rounded" alt="Project 1">
+      <h3 class="text-lg font-semibold">Food Calorie Estimator</h3>
+      <p class="text-gray-400 text-sm">Cross-platform app using Flutter + PyTorch for calorie estimation from food images.</p>
     </div>
-    <div class="min-w-[80vw] snap-center shrink-0 bg-gray-800 rounded-xl p-4">
-      <img src="project3.png" class="w-full h-60 object-cover mb-4 rounded" alt="Project 2">
-      <h3 class="text-xl font-semibold">PaperCupPro Inventory System</h3>
-      <p class="text-gray-400">Inventory + staff scheduling system for paper cup business. Reduced manual effort by 30%.</p>
+    <div class="bg-gray-800 rounded-xl p-4">
+      <img src="project3.png" class="w-full h-56 object-cover mb-4 rounded" alt="Project 2">
+      <h3 class="text-lg font-semibold">PaperCupPro Inventory System</h3>
+      <p class="text-gray-400 text-sm">Inventory + staff scheduling system for paper cup business. Reduced manual effort by 30%.</p>
     </div>
   </div>
 </section>
 
-<section id="experience" class="py-24 px-6 max-w-4xl mx-auto">
-  <h2 class="text-3xl font-bold mb-12 text-center">Experience</h2>
+<section id="experience" class="py-16 sm:py-24 px-4 sm:px-6 max-w-4xl mx-auto">
+  <h2 class="text-3xl font-bold mb-10 text-center">Experience</h2>
   <div class="space-y-10 text-left">
     <div>
       <h3 class="text-xl font-semibold">Software Development Intern – Ocean Shark LLC</h3>
@@ -100,8 +100,8 @@
   </div>
 </section>
 
-<section id="education" class="py-24 px-6 max-w-4xl mx-auto">
-  <h2 class="text-3xl font-bold mb-12 text-center">Education</h2>
+<section id="education" class="py-16 sm:py-24 px-4 sm:px-6 max-w-4xl mx-auto">
+  <h2 class="text-3xl font-bold mb-10 text-center">Education</h2>
   <div class="space-y-8 text-left">
     <div>
       <h3 class="text-xl font-semibold">New York University</h3>
@@ -116,7 +116,7 @@
   </div>
 </section>
 
-<section id="contact" class="py-24 text-center px-6">
+<section id="contact" class="py-16 sm:py-24 text-center px-4 sm:px-6">
   <h2 class="text-3xl font-bold mb-6">Get in Touch</h2>
   <p class="text-gray-400 mb-4">Let’s build something amazing together 🚀</p>
   <div class="text-sm text-gray-300 space-y-2">
