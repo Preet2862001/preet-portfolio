@@ -1,17 +1,15 @@
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" x-data="{ open: false }" @keydown.escape="open = false">
 <head>
   <meta charset="UTF-8">
   <title>Preet Patel – Portfolio</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script src="https://cdn.tailwindcss.com"></script>
+  <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
   <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
   <style>
     html { scroll-behavior: smooth; }
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-    }
     header.sticky {
       transition: all 0.3s ease;
     }
@@ -29,9 +27,12 @@
 </head>
 <body class="bg-black text-white">
 
-<header id="site-header" class="w-full fixed top-0 z-10 bg-black/80 backdrop-blur border-b border-white/20 px-6 sm:px-10 py-4 flex justify-between items-center sticky">
+<!-- Header -->
+<header id="site-header" class="w-full fixed top-0 z-20 bg-black/80 backdrop-blur border-b border-white/20 px-6 sm:px-10 py-4 flex justify-between items-center sticky">
   <h1 class="text-xl sm:text-2xl font-semibold tracking-tight">PREET PATEL</h1>
-  <nav class="flex gap-6 text-sm font-medium items-center">
+  
+  <!-- Desktop Nav -->
+  <nav class="hidden md:flex gap-6 text-sm font-medium items-center">
     <a href="#about" class="hover:text-gray-400">About</a>
     <a href="#skills" class="hover:text-gray-400">Skills</a>
     <a href="#projects" class="hover:text-gray-400">Projects</a>
@@ -39,7 +40,28 @@
     <a href="#education" class="hover:text-gray-400">Education</a>
     <a href="#contact" class="hover:text-gray-400">Contact</a>
   </nav>
+
+  <!-- Mobile Menu Button -->
+  <div class="md:hidden">
+    <button @click="open = !open" class="focus:outline-none">
+      <svg class="h-6 w-6" fill="none" stroke="white" viewBox="0 0 24 24" stroke-width="2">
+        <path stroke-linecap="round" stroke-linejoin="round" :d="open ? 'M6 18L18 6M6 6l12 12' : 'M4 6h16M4 12h16M4 18h16'" />
+      </svg>
+    </button>
+  </div>
 </header>
+
+<!-- Mobile Menu -->
+<div x-show="open" class="md:hidden fixed top-16 inset-x-0 bg-black border-t border-white/20 z-10">
+  <div class="flex flex-col items-center py-4 space-y-4 text-sm font-medium">
+    <a href="#about" @click="open = false" class="hover:text-gray-400">About</a>
+    <a href="#skills" @click="open = false" class="hover:text-gray-400">Skills</a>
+    <a href="#projects" @click="open = false" class="hover:text-gray-400">Projects</a>
+    <a href="#experience" @click="open = false" class="hover:text-gray-400">Experience</a>
+    <a href="#education" @click="open = false" class="hover:text-gray-400">Education</a>
+    <a href="#contact" @click="open = false" class="hover:text-gray-400">Contact</a>
+  </div>
+</div>
 
 <main id="about" class="min-h-screen parallax-hero flex flex-col items-center justify-center text-center px-6 pt-40 text-white">
   <h2 data-aos="fade-down" class="text-4xl sm:text-6xl font-semibold max-w-4xl leading-tight drop-shadow-lg">Creativity meets clean</h2>
