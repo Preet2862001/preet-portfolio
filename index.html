@@ -1,13 +1,14 @@
-
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" x-data="{ open: false }" @keydown.escape="open = false">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Scroll Animation – Technologies</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
   <script src="https://unpkg.com/gsap@3/dist/gsap.min.js"></script>
   <script src="https://unpkg.com/gsap@3/dist/ScrollTrigger.min.js"></script>
+  <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
   <style>
     html, body {
       scroll-behavior: smooth;
@@ -20,11 +21,21 @@
       height: 100px;
       object-fit: contain;
     }
+    header.sticky.scrolled {
+      background-color: #0a0a0a;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.5);
+    }
+    .parallax-hero {
+      background-image: url('portrait.jpg');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+    }
   </style>
 </head>
 <body>
 
-  <!-- Header -->
+<!-- Header -->
 <header id="site-header" class="w-full fixed top-0 z-20 bg-black/80 backdrop-blur border-b border-white/20 px-6 sm:px-10 py-4 flex justify-between items-center sticky">
   <h1 class="text-xl sm:text-2xl font-semibold tracking-tight">PREET PATEL</h1>
   
@@ -42,14 +53,22 @@
   <div class="md:hidden">
     <button @click="open = !open" class="focus:outline-none">
       <svg class="h-6 w-6" fill="none" stroke="white" viewBox="0 0 24 24" stroke-width="2">
-        <path stroke-linecap="round" stroke-linejoin="round" :d="open ? 'M6 18L18 6M6 6l12 12' : 'M4 6h16M4 12h16M4 18h16'" />
+        <path stroke-linecap="round" stroke-linejoin="round"
+              :d="open ? 'M6 18L18 6M6 6l12 12' : 'M4 6h16M4 12h16M4 18h16'" />
       </svg>
     </button>
   </div>
 </header>
 
 <!-- Mobile Menu -->
-<div x-show="open" class="md:hidden fixed top-16 inset-x-0 bg-black border-t border-white/20 z-10">
+<div x-show="open"
+     x-transition:enter="transition ease-out duration-200"
+     x-transition:enter-start="opacity-0 -translate-y-2"
+     x-transition:enter-end="opacity-100 translate-y-0"
+     x-transition:leave="transition ease-in duration-150"
+     x-transition:leave-start="opacity-100 translate-y-0"
+     x-transition:leave-end="opacity-0 -translate-y-2"
+     class="md:hidden fixed top-16 inset-x-0 bg-black border-t border-white/20 z-10">
   <div class="flex flex-col items-center py-4 space-y-4 text-sm font-medium">
     <a href="#about" @click="open = false" class="hover:text-gray-400">About</a>
     <a href="#skills" @click="open = false" class="hover:text-gray-400">Skills</a>
@@ -59,6 +78,7 @@
     <a href="#contact" @click="open = false" class="hover:text-gray-400">Contact</a>
   </div>
 </div>
+
 
 <main id="about" class="min-h-screen parallax-hero flex flex-col items-center justify-center text-center px-6 pt-40 text-white">
   <h2 data-aos="fade-down" class="text-4xl sm:text-6xl font-semibold max-w-4xl leading-tight drop-shadow-lg">Creativity meets clean</h2>
@@ -102,24 +122,6 @@
   </div>
 </section>
 
-<script>
-  gsap.registerPlugin(ScrollTrigger);
-
-  const techs = ["python", "java", "cpp", "sql", "docker", "aws"];
-  techs.forEach((id, i) => {
-    gsap.to("#" + id, {
-      scrollTrigger: {
-        trigger: "#techs",
-        start: () => "top+=" + (i * 100) + " center",
-        toggleActions: "play none none reverse"
-      },
-      y: -80 - (i * 10),
-      opacity: 1,
-      duration: 1.2,
-      ease: "power3.out"
-    });
-  });
-</script>
 
 <section id="skills" class="bg-[#0f0f0f] py-20 px-6 text-center">
   <h3 class="text-3xl sm:text-4xl font-semibold mb-6" data-aos="fade-up">Skills</h3>
@@ -222,6 +224,39 @@
   &copy; 2025 Preet Patel. All rights reserved.
 </footer>
 
+<script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+<script>
+  AOS.init({ once: true });
+  window.addEventListener('scroll', () => {
+    const header = document.getElementById('site-header');
+    if (window.scrollY > 20) {
+      header.classList.add('scrolled');
+    } else {
+      header.classList.remove('scrolled');
+    }
+  });
+</script>
+
+<!-- ScrollTrigger Animation Script -->
+<script>
+  gsap.registerPlugin(ScrollTrigger);
+  const techs = ["python", "java", "cpp", "sql", "docker", "aws"];
+  techs.forEach((id, i) => {
+    gsap.to("#" + id, {
+      scrollTrigger: {
+        trigger: "#techs",
+        start: () => "top+=" + (i * 100) + " center",
+        toggleActions: "play none none reverse"
+      },
+      y: -80 - (i * 10),
+      opacity: 1,
+      duration: 1.2,
+      ease: "power3.out"
+    });
+  });
+</script>
+
+<!-- AOS Script -->
 <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
 <script>
   AOS.init({ once: true });
