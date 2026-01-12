@@ -58,8 +58,7 @@
     .navlink.active::after { width: 100%; }
 
     /* ✅ SAFE reveal animation:
-       - default is VISIBLE (opacity:1)
-       - only hides if JS adds .js-reveal-enabled to <html>
+       Default is visible (opacity:1). Only hides if JS adds .js-reveal-enabled.
     */
     .reveal { opacity: 1; transform: none; }
     .js-reveal-enabled .reveal {
@@ -155,6 +154,7 @@
     </div>
 
     <div class="reveal mt-10 flex flex-col items-center">
+      <!-- If you don't have portrait.png, replace with your hosted image URL or remove this tag -->
       <img src="portrait.png" alt="Preet Patel"
            class="w-44 h-44 sm:w-56 sm:h-56 rounded-full object-cover border border-white/20 shadow-xl" />
       <div class="mt-6 flex items-center gap-4 text-sm">
@@ -165,6 +165,7 @@
     </div>
   </div>
 
+  <!-- Systems Highlights -->
   <section class="mt-14 w-full max-w-5xl mx-auto">
     <div class="grid grid-cols-1 sm:grid-cols-3 gap-5">
       <div class="reveal glass rounded-2xl p-6 text-left">
@@ -192,32 +193,39 @@
   </section>
 </main>
 
-<!-- Scroll-based Animation Section -->
+<!-- Scroll-based Animation Section (Laptop + floating tech) -->
 <section class="relative min-h-screen flex flex-col justify-center items-center overflow-hidden px-6">
   <div class="relative w-full max-w-5xl h-[640px] flex justify-center items-center">
+    <!-- If you don't have laptop.png, replace with your hosted image URL or remove -->
     <img src="laptop.png" alt="Laptop" class="z-10 w-[620px] max-w-full mx-auto relative" />
 
+    <!-- Floating Tech Screens -->
     <div id="techs" class="absolute inset-0 flex justify-center items-center pointer-events-none">
       <div id="python" class="absolute top-8 left-1/2 -translate-x-1/2 opacity-0 text-center">
         <img src="python.png" class="tech-logo mx-auto mb-2" alt="Python" />
         <p class="text-sm text-gray-200">Python</p>
       </div>
+
       <div id="cpp" class="absolute top-28 right-10 opacity-0 text-center">
         <img src="cpp.png" class="tech-logo mx-auto mb-2" alt="C++" />
         <p class="text-sm text-gray-200">C++</p>
       </div>
+
       <div id="java" class="absolute top-28 left-10 opacity-0 text-center">
         <img src="java.png" class="tech-logo mx-auto mb-2" alt="Java" />
         <p class="text-sm text-gray-200">Java</p>
       </div>
+
       <div id="sql" class="absolute bottom-28 left-12 opacity-0 text-center">
         <img src="sql.png" class="tech-logo mx-auto mb-2" alt="SQL" />
         <p class="text-sm text-gray-200">SQL</p>
       </div>
+
       <div id="docker" class="absolute bottom-28 right-12 opacity-0 text-center">
         <img src="docker.png" class="tech-logo mx-auto mb-2" alt="Docker" />
         <p class="text-sm text-gray-200">Docker</p>
       </div>
+
       <div id="aws" class="absolute bottom-10 left-1/2 -translate-x-1/2 opacity-0 text-center">
         <img src="aws.png" class="tech-logo mx-auto mb-2" alt="AWS" />
         <p class="text-sm text-gray-200">AWS</p>
@@ -240,6 +248,13 @@
       <p class="mt-2 text-sm text-gray-300 leading-relaxed">
         Linux, debugging, performance tuning, incident response, SLO-style thinking, root-cause analysis, guardrails.
       </p>
+      <div class="mt-4 flex flex-wrap gap-2 text-xs">
+        <span class="chip px-3 py-1 rounded-full">Linux</span>
+        <span class="chip px-3 py-1 rounded-full">Debugging</span>
+        <span class="chip px-3 py-1 rounded-full">Perf</span>
+        <span class="chip px-3 py-1 rounded-full">Reliability</span>
+        <span class="chip px-3 py-1 rounded-full">Runbooks</span>
+      </div>
     </div>
 
     <div class="reveal glass rounded-2xl p-6">
@@ -247,6 +262,40 @@
       <p class="mt-2 text-sm text-gray-300 leading-relaxed">
         Node.js, Python, REST APIs, microservices, queues, caching, PostgreSQL/MongoDB, CI/CD, Docker, AWS.
       </p>
+      <div class="mt-4 flex flex-wrap gap-2 text-xs">
+        <span class="chip px-3 py-1 rounded-full">Python</span>
+        <span class="chip px-3 py-1 rounded-full">Node.js</span>
+        <span class="chip px-3 py-1 rounded-full">Microservices</span>
+        <span class="chip px-3 py-1 rounded-full">CI/CD</span>
+        <span class="chip px-3 py-1 rounded-full">Docker</span>
+        <span class="chip px-3 py-1 rounded-full">AWS</span>
+      </div>
+    </div>
+
+    <div class="reveal glass rounded-2xl p-6">
+      <h4 class="text-lg font-semibold">Telemetry / Observability</h4>
+      <p class="mt-2 text-sm text-gray-300 leading-relaxed">
+        Structured logs, metrics, tracing, correlation IDs, dashboards/alerts, regression detection, time-to-diagnose reduction.
+      </p>
+      <div class="mt-4 flex flex-wrap gap-2 text-xs">
+        <span class="chip px-3 py-1 rounded-full">Logs</span>
+        <span class="chip px-3 py-1 rounded-full">Metrics</span>
+        <span class="chip px-3 py-1 rounded-full">Tracing</span>
+        <span class="chip px-3 py-1 rounded-full">Dashboards</span>
+      </div>
+    </div>
+
+    <div class="reveal glass rounded-2xl p-6">
+      <h4 class="text-lg font-semibold">AI/ML (Quality + Safety)</h4>
+      <p class="mt-2 text-sm text-gray-300 leading-relaxed">
+        LLM/RAG patterns, embeddings retrieval, evaluation harnesses, golden sets, and iterative quality improvements.
+      </p>
+      <div class="mt-4 flex flex-wrap gap-2 text-xs">
+        <span class="chip px-3 py-1 rounded-full">RAG</span>
+        <span class="chip px-3 py-1 rounded-full">Embeddings</span>
+        <span class="chip px-3 py-1 rounded-full">Evaluations</span>
+        <span class="chip px-3 py-1 rounded-full">Prompting</span>
+      </div>
     </div>
   </div>
 
@@ -262,25 +311,203 @@
   <p class="reveal text-gray-400 max-w-3xl mx-auto mb-12">
     Projects are framed like production work: interfaces, constraints, reliability, and measurable outcomes.
   </p>
-  <!-- keep your same cards here; no change needed -->
+
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+
+    <a href="https://github.com/Preet2862001/real-time-dashboard" target="_blank" rel="noopener noreferrer">
+      <div class="reveal rounded-2xl overflow-hidden shadow border border-white/10 bg-[#0f0f0f]">
+        <img src="project5.png" class="w-full h-52 object-cover" alt="Real-Time Dashboard" />
+        <div class="p-6 text-left">
+          <h3 class="text-lg font-semibold">Real-Time Dashboard (React + WebSocket)</h3>
+          <p class="text-gray-400 text-sm mt-2">
+            Real-time event streaming UI with operational visibility patterns: throughput, error states, and live updates.
+          </p>
+          <div class="mt-4 flex flex-wrap gap-2 text-xs">
+            <span class="chip px-3 py-1 rounded-full">WebSocket</span>
+            <span class="chip px-3 py-1 rounded-full">React</span>
+            <span class="chip px-3 py-1 rounded-full">Real-time</span>
+          </div>
+        </div>
+      </div>
+    </a>
+
+    <a href="https://github.com/Preet2862001/ecommerce-product-api" target="_blank" rel="noopener noreferrer">
+      <div class="reveal rounded-2xl overflow-hidden shadow border border-white/10 bg-[#0f0f0f]">
+        <img src="project4.png" class="w-full h-52 object-cover" alt="E-Commerce Product API" />
+        <div class="p-6 text-left">
+          <h3 class="text-lg font-semibold">E-Commerce Product API</h3>
+          <p class="text-gray-400 text-sm mt-2">
+            Backend service patterns: authentication, CRUD, validation, and API contracts designed for maintainability.
+          </p>
+          <div class="mt-4 flex flex-wrap gap-2 text-xs">
+            <span class="chip px-3 py-1 rounded-full">Node.js</span>
+            <span class="chip px-3 py-1 rounded-full">MongoDB</span>
+            <span class="chip px-3 py-1 rounded-full">JWT</span>
+          </div>
+        </div>
+      </div>
+    </a>
+
+    <a href="https://github.com/Preet2862001/papercuppro-inventory-system" target="_blank" rel="noopener noreferrer">
+      <div class="reveal rounded-2xl overflow-hidden shadow border border-white/10 bg-[#0f0f0f]">
+        <img src="project3.png" class="w-full h-52 object-cover" alt="PaperCupPro Inventory System" />
+        <div class="p-6 text-left">
+          <h3 class="text-lg font-semibold">PaperCupPro — Inventory & Ops</h3>
+          <p class="text-gray-400 text-sm mt-2">
+            Operations platform with role-based access, reporting workflows, and scalability-friendly data modeling.
+          </p>
+          <div class="mt-4 flex flex-wrap gap-2 text-xs">
+            <span class="chip px-3 py-1 rounded-full">RBAC</span>
+            <span class="chip px-3 py-1 rounded-full">SQL</span>
+            <span class="chip px-3 py-1 rounded-full">Admin tools</span>
+          </div>
+        </div>
+      </div>
+    </a>
+
+    <a href="https://github.com/Preet2862001/food-calorie-estimation-dnn" target="_blank" rel="noopener noreferrer">
+      <div class="reveal rounded-2xl overflow-hidden shadow border border-white/10 bg-[#0f0f0f]">
+        <img src="project2.png" class="w-full h-52 object-cover" alt="Food Calorie Estimator" />
+        <div class="p-6 text-left">
+          <h3 class="text-lg font-semibold">Food Calorie Estimator (ML Service)</h3>
+          <p class="text-gray-400 text-sm mt-2">
+            ML pipeline presented as a service: evaluation-driven iteration, predictable inference, and clear API boundaries.
+          </p>
+          <div class="mt-4 flex flex-wrap gap-2 text-xs">
+            <span class="chip px-3 py-1 rounded-full">Python</span>
+            <span class="chip px-3 py-1 rounded-full">Model eval</span>
+            <span class="chip px-3 py-1 rounded-full">API</span>
+          </div>
+        </div>
+      </div>
+    </a>
+
+    <a href="https://github.com/Preet2862001/ai-vehicle-monitoring-system" target="_blank" rel="noopener noreferrer">
+      <div class="reveal rounded-2xl overflow-hidden shadow border border-white/10 bg-[#0f0f0f]">
+        <img src="project1.png" class="w-full h-52 object-cover" alt="AI Vehicle Monitoring" />
+        <div class="p-6 text-left">
+          <h3 class="text-lg font-semibold">Driver Alertness (Real-time Pipeline)</h3>
+          <p class="text-gray-400 text-sm mt-2">
+            Real-time stream processing with performance constraints, latency-aware logic, and robustness against noisy inputs.
+          </p>
+          <div class="mt-4 flex flex-wrap gap-2 text-xs">
+            <span class="chip px-3 py-1 rounded-full">OpenCV</span>
+            <span class="chip px-3 py-1 rounded-full">Real-time</span>
+            <span class="chip px-3 py-1 rounded-full">Latency</span>
+          </div>
+        </div>
+      </div>
+    </a>
+
+    <div class="reveal rounded-2xl overflow-hidden shadow border border-white/10 bg-[#0f0f0f]">
+      <div class="p-6 text-left">
+        <p class="text-xs text-gray-500">Learning Track</p>
+        <h3 class="text-lg font-semibold mt-1">Firmware / Interface Lab (USB • SPI • I2C)</h3>
+        <p class="text-gray-400 text-sm mt-2">
+          Active learning to align with firmware-adjacent roles: interface concepts, failure modes, test harness design, and debugging workflow.
+        </p>
+        <div class="mt-4 flex flex-wrap gap-2 text-xs">
+          <span class="chip px-3 py-1 rounded-full">USB</span>
+          <span class="chip px-3 py-1 rounded-full">SPI</span>
+          <span class="chip px-3 py-1 rounded-full">I2C</span>
+          <span class="chip px-3 py-1 rounded-full">Debugging</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
 </section>
 
 <!-- Experience -->
 <section id="experience" class="py-20 px-6 max-w-5xl mx-auto">
   <h2 class="reveal text-3xl sm:text-4xl font-bold mb-10 text-center">Experience</h2>
-  <!-- keep your same experience cards here; no change needed -->
+
+  <div class="space-y-8 text-left">
+    <div class="reveal glass rounded-2xl p-7">
+      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+        <h3 class="text-lg font-semibold">Software Engineer — Ocean Shark LLC</h3>
+        <p class="text-gray-400 text-sm">Sep 2025 – Present • New Jersey, USA</p>
+      </div>
+      <ul class="list-disc list-inside mt-4 text-gray-300 text-sm leading-relaxed space-y-2">
+        <li>Backend services and platform development with reliability, clean interfaces, and operational readiness in mind.</li>
+        <li>Telemetry-first mindset: structured logs, metrics/traces, and debugging hooks to speed up diagnosis.</li>
+        <li>Automation and delivery discipline: CI/CD, safe rollouts, and regression prevention patterns.</li>
+      </ul>
+    </div>
+
+    <div class="reveal glass rounded-2xl p-7">
+      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+        <h3 class="text-lg font-semibold">Software Engineer Intern — Ocean Shark LLC</h3>
+        <p class="text-gray-400 text-sm">Jun 2024 – May 2025 • Hybrid</p>
+      </div>
+      <ul class="list-disc list-inside mt-4 text-gray-300 text-sm leading-relaxed space-y-2">
+        <li>Worked on Node.js + AWS microservices, API development, and internal tools for operational workflows.</li>
+        <li>Built CI/CD improvements with Docker + GitHub Actions and developed monitoring dashboards for throughput/health.</li>
+        <li>Implemented RBAC patterns and audit-friendly middleware for controlled access.</li>
+      </ul>
+    </div>
+
+    <div class="reveal glass rounded-2xl p-7">
+      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+        <h3 class="text-lg font-semibold">Machine Learning Intern — Bosch India</h3>
+        <p class="text-gray-400 text-sm">Jun 2022 – Aug 2022 • Pune, India</p>
+      </div>
+      <ul class="list-disc list-inside mt-4 text-gray-300 text-sm leading-relaxed space-y-2">
+        <li>Time-series analysis and anomaly detection work; built automation/reporting to improve diagnostic productivity.</li>
+        <li>Model iteration and evaluation mindset with a focus on reducing false positives and improving signal quality.</li>
+      </ul>
+    </div>
+
+    <div class="reveal glass rounded-2xl p-7">
+      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+        <h3 class="text-lg font-semibold">Full-Stack Developer — Adaptable Services</h3>
+        <p class="text-gray-400 text-sm">Nov 2022 – Jul 2023 • India</p>
+      </div>
+      <ul class="list-disc list-inside mt-4 text-gray-300 text-sm leading-relaxed space-y-2">
+        <li>Full-stack delivery with emphasis on stable APIs, maintainable code, and admin-facing operational tooling.</li>
+      </ul>
+    </div>
+  </div>
 </section>
 
 <!-- Education -->
 <section id="education" class="py-20 px-6 max-w-5xl mx-auto">
   <h2 class="reveal text-3xl sm:text-4xl font-bold mb-10 text-center">Education</h2>
-  <!-- keep your same education here; no change needed -->
+
+  <div class="reveal glass rounded-2xl p-7 text-left text-gray-300">
+    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+      <h3 class="text-lg font-semibold">New York University</h3>
+      <p class="text-gray-400 text-sm">M.S. Computer Science • Sep 2023 – May 2025</p>
+    </div>
+    <p class="mt-2 text-sm text-gray-400">New York, NY</p>
+  </div>
 </section>
 
 <!-- Contact -->
 <section id="contact" class="py-24 text-center px-6">
   <h2 class="reveal text-3xl font-bold mb-6">Get in Touch</h2>
-  <!-- keep your same contact block here; no change needed -->
+  <p class="reveal text-gray-400 mb-6 max-w-xl mx-auto">
+    If you’re hiring for backend/systems roles (reliability, telemetry, platform engineering), I’d love to connect.
+  </p>
+
+  <div class="reveal glass max-w-xl mx-auto rounded-2xl p-7 text-sm text-gray-200 space-y-3">
+    <p>📧 Email:
+      <a href="mailto:preetpatel2861@gmail.com" class="underline hover:text-cyan-300">preetpatel2861@gmail.com</a>
+    </p>
+    <p>🔗 LinkedIn:
+      <a href="https://linkedin.com/in/preet-patel2861" target="_blank" rel="noopener noreferrer" class="underline hover:text-cyan-300">
+        linkedin.com/in/preet-patel2861
+      </a>
+    </p>
+    <p>💻 GitHub:
+      <a href="https://github.com/Preet2862001" target="_blank" rel="noopener noreferrer" class="underline hover:text-cyan-300">
+        github.com/Preet2862001
+      </a>
+    </p>
+    <p>📞 Phone:
+      <a href="tel:+19296427701" class="underline hover:text-cyan-300">+1 (929) 642-7701</a>
+    </p>
+  </div>
 </section>
 
 <footer class="text-center text-xs text-gray-500 py-8 bg-black border-t border-white/10">
@@ -312,7 +539,7 @@
     .map(id => document.getElementById(id))
     .filter(Boolean);
 
-  const obs = new IntersectionObserver((entries) => {
+  const navObs = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
         const alpine = document.documentElement.__x;
@@ -321,10 +548,11 @@
     });
   }, { threshold: 0.45 });
 
-  sections.forEach(sec => obs.observe(sec));
+  sections.forEach(sec => navObs.observe(sec));
 
   // GSAP ScrollTrigger animations for floating tech
   gsap.registerPlugin(ScrollTrigger);
+
   const techs = ["python", "java", "cpp", "sql", "docker", "aws"];
   techs.forEach((id, i) => {
     gsap.to("#" + id, {
