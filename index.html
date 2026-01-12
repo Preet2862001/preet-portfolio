@@ -10,7 +10,10 @@
   <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
   <script src="https://unpkg.com/gsap@3/dist/gsap.min.js"></script>
   <script src="https://unpkg.com/gsap@3/dist/ScrollTrigger.min.js"></script>
+
+  <!-- AOS (CSS in head, JS in head so it's available before init) -->
   <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
+  <script defer src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
 
   <style>
     html, body {
@@ -61,10 +64,14 @@
       transition: width 180ms ease;
     }
     .navlink.active::after { width: 100%; }
+
+    /* FAILSAFE: if AOS fails to load for any reason, don't hide content */
+    [data-aos] { opacity: 1; transform: none; }
+    .aos-init [data-aos] { opacity: 0; transition-property: opacity, transform; }
   </style>
 </head>
 
-<body>
+<body class="bg-black text-white">
 
 <!-- Header -->
 <header id="site-header" class="w-full fixed top-0 z-30 bg-black/70 backdrop-blur border-b border-white/10 px-6 sm:px-10 py-4 flex justify-between items-center">
@@ -144,7 +151,6 @@
     </div>
 
     <div class="mt-10 flex flex-col items-center">
-      <!-- Keep your portrait.png if you have it -->
       <img src="portrait.png" alt="Preet Patel"
            class="w-44 h-44 sm:w-56 sm:h-56 rounded-full object-cover border border-white/20 shadow-xl" />
       <div class="mt-6 flex items-center gap-4 text-sm">
@@ -155,7 +161,6 @@
     </div>
   </div>
 
-  <!-- Systems Highlights (makes you look SE2, not beginner) -->
   <section class="mt-14 w-full max-w-5xl mx-auto">
     <div class="grid grid-cols-1 sm:grid-cols-3 gap-5">
       <div class="glass rounded-2xl p-6 text-left" data-aos="fade-up">
@@ -188,7 +193,6 @@
   <div class="relative w-full max-w-5xl h-[640px] flex justify-center items-center">
     <img src="laptop.png" alt="Laptop" class="z-10 w-[620px] max-w-full mx-auto relative" />
 
-    <!-- Floating Tech Screens -->
     <div id="techs" class="absolute inset-0 flex justify-center items-center pointer-events-none">
       <div id="python" class="absolute top-8 left-1/2 -translate-x-1/2 opacity-0 text-center">
         <img src="python.png" class="tech-logo mx-auto mb-2" alt="Python" />
@@ -292,7 +296,6 @@
     Download Resume
   </a>
 
-  <!-- NOTE: Firmware Interfaces should be "Learning" unless you've built them -->
   <p class="mt-6 text-xs text-gray-500 max-w-3xl mx-auto">
     Note: Firmware/low-level interfaces (USB/SPI/I2C/PCIe) are listed as an active learning track unless explicitly shown in a shipped project.
   </p>
@@ -307,7 +310,6 @@
 
   <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
 
-    <!-- Project: Real-Time Dashboard -->
     <a href="https://github.com/Preet2862001/real-time-dashboard" target="_blank" rel="noopener noreferrer">
       <div class="rounded-2xl overflow-hidden shadow border border-white/10 bg-[#0f0f0f]" data-aos="fade-up">
         <img src="project5.png" class="w-full h-52 object-cover" alt="Real-Time Dashboard" />
@@ -325,7 +327,6 @@
       </div>
     </a>
 
-    <!-- Project: E-Commerce API -->
     <a href="https://github.com/Preet2862001/ecommerce-product-api" target="_blank" rel="noopener noreferrer">
       <div class="rounded-2xl overflow-hidden shadow border border-white/10 bg-[#0f0f0f]" data-aos="fade-up" data-aos-delay="80">
         <img src="project4.png" class="w-full h-52 object-cover" alt="E-Commerce Product API" />
@@ -343,7 +344,6 @@
       </div>
     </a>
 
-    <!-- Project: PaperCupPro -->
     <a href="https://github.com/Preet2862001/papercuppro-inventory-system" target="_blank" rel="noopener noreferrer">
       <div class="rounded-2xl overflow-hidden shadow border border-white/10 bg-[#0f0f0f]" data-aos="fade-up" data-aos-delay="160">
         <img src="project3.png" class="w-full h-52 object-cover" alt="PaperCupPro Inventory System" />
@@ -361,7 +361,6 @@
       </div>
     </a>
 
-    <!-- Project: Food Calorie -->
     <a href="https://github.com/Preet2862001/food-calorie-estimation-dnn" target="_blank" rel="noopener noreferrer">
       <div class="rounded-2xl overflow-hidden shadow border border-white/10 bg-[#0f0f0f]" data-aos="fade-up">
         <img src="project2.png" class="w-full h-52 object-cover" alt="Food Calorie Estimator" />
@@ -379,7 +378,6 @@
       </div>
     </a>
 
-    <!-- Project: Vehicle Monitoring -->
     <a href="https://github.com/Preet2862001/ai-vehicle-monitoring-system" target="_blank" rel="noopener noreferrer">
       <div class="rounded-2xl overflow-hidden shadow border border-white/10 bg-[#0f0f0f]" data-aos="fade-up" data-aos-delay="80">
         <img src="project1.png" class="w-full h-52 object-cover" alt="AI Vehicle Monitoring" />
@@ -397,7 +395,6 @@
       </div>
     </a>
 
-    <!-- Optional: Learning track card (ONLY as learning, not claim) -->
     <div class="rounded-2xl overflow-hidden shadow border border-white/10 bg-[#0f0f0f]" data-aos="fade-up" data-aos-delay="160">
       <div class="p-6 text-left">
         <p class="text-xs text-gray-500">Learning Track</p>
@@ -469,7 +466,7 @@
   </div>
 </section>
 
-<!-- Education (Microsoft-aligned: keep only NYU if you want) -->
+<!-- Education -->
 <section id="education" class="py-20 px-6 max-w-5xl mx-auto">
   <h2 class="text-3xl sm:text-4xl font-bold mb-10 text-center" data-aos="fade-up">Education</h2>
 
@@ -513,9 +510,16 @@
   &copy; 2026 Preet Patel. Built with Tailwind + Alpine + GSAP.
 </footer>
 
+<!-- ✅ All JS is at the end. AOS is already loaded (defer in head). -->
 <script>
-  // AOS
-  AOS.init({ once: true });
+  // Make AOS "opt-in" hiding only if it exists.
+  // (Prevents "no text visible" if AOS doesn't load.)
+  (function () {
+    if (window.AOS) {
+      document.documentElement.classList.add('aos-init');
+      AOS.init({ once: true });
+    }
+  })();
 
   // Header background on scroll
   window.addEventListener('scroll', () => {
@@ -525,20 +529,21 @@
   });
 
   // Active nav highlighting via IntersectionObserver
-  const sections = ["about", "skills", "projects", "experience", "education", "contact"].map(id => document.getElementById(id));
+  const sections = ["about", "skills", "projects", "experience", "education", "contact"]
+    .map(id => document.getElementById(id))
+    .filter(Boolean);
+
   const obs = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
-        // Alpine scope on <html>
-        document.documentElement.__x.$data.active = entry.target.id;
+        const alpine = document.documentElement.__x;
+        if (alpine && alpine.$data) alpine.$data.active = entry.target.id;
       }
     });
   }, { root: null, threshold: 0.45 });
 
-  sections.forEach(sec => sec && obs.observe(sec));
-</script>
+  sections.forEach(sec => obs.observe(sec));
 
-<script>
   // GSAP ScrollTrigger animations for floating tech
   gsap.registerPlugin(ScrollTrigger);
 
@@ -560,6 +565,5 @@
   });
 </script>
 
-<script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
 </body>
 </html>
