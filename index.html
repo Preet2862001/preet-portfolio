@@ -5,15 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Preet Patel — Systems / Backend / Reliability</title>
 
-  <!-- Tailwind + Alpine + GSAP + AOS -->
+  <!-- Tailwind + Alpine + GSAP -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
   <script src="https://unpkg.com/gsap@3/dist/gsap.min.js"></script>
   <script src="https://unpkg.com/gsap@3/dist/ScrollTrigger.min.js"></script>
-
-  <!-- AOS (CSS in head, JS in head so it's available before init) -->
-  <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
-  <script defer src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
 
   <style>
     html, body {
@@ -48,26 +44,34 @@
       border: 1px solid rgba(255,255,255,0.14);
       background: rgba(255,255,255,0.06);
     }
+
     /* Active nav underline */
-    .navlink {
-      position: relative;
-      padding-bottom: 6px;
-    }
+    .navlink { position: relative; padding-bottom: 6px; }
     .navlink::after {
       content: "";
       position: absolute;
-      left: 0;
-      bottom: 0;
-      height: 2px;
-      width: 0%;
+      left: 0; bottom: 0;
+      height: 2px; width: 0%;
       background: rgba(255,255,255,0.9);
       transition: width 180ms ease;
     }
     .navlink.active::after { width: 100%; }
 
-    /* FAILSAFE: if AOS fails to load for any reason, don't hide content */
-    [data-aos] { opacity: 1; transform: none; }
-    .aos-init [data-aos] { opacity: 0; transition-property: opacity, transform; }
+    /* ✅ SAFE reveal animation:
+       - default is VISIBLE (opacity:1)
+       - only hides if JS adds .js-reveal-enabled to <html>
+    */
+    .reveal { opacity: 1; transform: none; }
+    .js-reveal-enabled .reveal {
+      opacity: 0;
+      transform: translateY(14px);
+      transition: opacity 550ms ease, transform 650ms ease;
+      will-change: opacity, transform;
+    }
+    .js-reveal-enabled .reveal.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
   </style>
 </head>
 
@@ -131,18 +135,18 @@
 <!-- Hero / About -->
 <main id="about" class="min-h-screen hero-bg flex flex-col items-center justify-center text-center px-6 pt-36 pb-20">
   <div class="max-w-4xl mx-auto">
-    <h2 data-aos="fade-down" class="text-4xl sm:text-6xl font-semibold leading-tight">
+    <h2 class="reveal text-4xl sm:text-6xl font-semibold leading-tight">
       Systems-first engineering
     </h2>
-    <h2 data-aos="fade-up" class="text-4xl sm:text-6xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 via-purple-500 to-orange-400 mt-2">
+    <h2 class="reveal text-4xl sm:text-6xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 via-purple-500 to-orange-400 mt-2">
       built for reliability.
     </h2>
-    <p data-aos="fade-in" class="mt-6 text-base sm:text-lg text-gray-200 max-w-2xl mx-auto leading-relaxed">
+    <p class="reveal mt-6 text-base sm:text-lg text-gray-200 max-w-2xl mx-auto leading-relaxed">
       Software Engineer focused on backend + distributed systems, telemetry/observability, and production debugging.
       I like building services that are measurable, fault-tolerant, and easy to operate.
     </p>
 
-    <div data-aos="fade-in" class="mt-8 flex flex-wrap items-center justify-center gap-3 text-xs sm:text-sm">
+    <div class="reveal mt-8 flex flex-wrap items-center justify-center gap-3 text-xs sm:text-sm">
       <span class="chip px-4 py-2 rounded-full">Backend / Microservices</span>
       <span class="chip px-4 py-2 rounded-full">Telemetry (Logs • Metrics • Tracing)</span>
       <span class="chip px-4 py-2 rounded-full">CI/CD + Automation</span>
@@ -150,7 +154,7 @@
       <span class="chip px-4 py-2 rounded-full">LLM/RAG Evaluations</span>
     </div>
 
-    <div class="mt-10 flex flex-col items-center">
+    <div class="reveal mt-10 flex flex-col items-center">
       <img src="portrait.png" alt="Preet Patel"
            class="w-44 h-44 sm:w-56 sm:h-56 rounded-full object-cover border border-white/20 shadow-xl" />
       <div class="mt-6 flex items-center gap-4 text-sm">
@@ -163,21 +167,21 @@
 
   <section class="mt-14 w-full max-w-5xl mx-auto">
     <div class="grid grid-cols-1 sm:grid-cols-3 gap-5">
-      <div class="glass rounded-2xl p-6 text-left" data-aos="fade-up">
+      <div class="reveal glass rounded-2xl p-6 text-left">
         <p class="text-xs text-gray-400">Reliability</p>
         <h3 class="mt-1 text-lg font-semibold">Operate at scale</h3>
         <p class="mt-2 text-sm text-gray-300 leading-relaxed">
           Design services with clear boundaries, predictable failure modes, and guardrails that prevent repeat incidents.
         </p>
       </div>
-      <div class="glass rounded-2xl p-6 text-left" data-aos="fade-up" data-aos-delay="80">
+      <div class="reveal glass rounded-2xl p-6 text-left">
         <p class="text-xs text-gray-400">Telemetry</p>
         <h3 class="mt-1 text-lg font-semibold">Debug faster</h3>
         <p class="mt-2 text-sm text-gray-300 leading-relaxed">
           Instrument logs/metrics/traces, add correlation IDs, and build dashboards that reduce time-to-diagnose.
         </p>
       </div>
-      <div class="glass rounded-2xl p-6 text-left" data-aos="fade-up" data-aos-delay="160">
+      <div class="reveal glass rounded-2xl p-6 text-left">
         <p class="text-xs text-gray-400">Automation</p>
         <h3 class="mt-1 text-lg font-semibold">Ship safely</h3>
         <p class="mt-2 text-sm text-gray-300 leading-relaxed">
@@ -188,7 +192,7 @@
   </section>
 </main>
 
-<!-- Scroll-based Animation Section (Laptop + floating tech) -->
+<!-- Scroll-based Animation Section -->
 <section class="relative min-h-screen flex flex-col justify-center items-center overflow-hidden px-6">
   <div class="relative w-full max-w-5xl h-[640px] flex justify-center items-center">
     <img src="laptop.png" alt="Laptop" class="z-10 w-[620px] max-w-full mx-auto relative" />
@@ -198,27 +202,22 @@
         <img src="python.png" class="tech-logo mx-auto mb-2" alt="Python" />
         <p class="text-sm text-gray-200">Python</p>
       </div>
-
       <div id="cpp" class="absolute top-28 right-10 opacity-0 text-center">
         <img src="cpp.png" class="tech-logo mx-auto mb-2" alt="C++" />
         <p class="text-sm text-gray-200">C++</p>
       </div>
-
       <div id="java" class="absolute top-28 left-10 opacity-0 text-center">
         <img src="java.png" class="tech-logo mx-auto mb-2" alt="Java" />
         <p class="text-sm text-gray-200">Java</p>
       </div>
-
       <div id="sql" class="absolute bottom-28 left-12 opacity-0 text-center">
         <img src="sql.png" class="tech-logo mx-auto mb-2" alt="SQL" />
         <p class="text-sm text-gray-200">SQL</p>
       </div>
-
       <div id="docker" class="absolute bottom-28 right-12 opacity-0 text-center">
         <img src="docker.png" class="tech-logo mx-auto mb-2" alt="Docker" />
         <p class="text-sm text-gray-200">Docker</p>
       </div>
-
       <div id="aws" class="absolute bottom-10 left-1/2 -translate-x-1/2 opacity-0 text-center">
         <img src="aws.png" class="tech-logo mx-auto mb-2" alt="AWS" />
         <p class="text-sm text-gray-200">AWS</p>
@@ -226,68 +225,28 @@
     </div>
   </div>
 
-  <p class="mt-10 text-center text-sm text-gray-400 max-w-2xl" data-aos="fade-up">
+  <p class="reveal mt-10 text-center text-sm text-gray-400 max-w-2xl">
     I build backend systems that are easier to operate: clean APIs, strong telemetry, and automation that prevents repeat failures.
   </p>
 </section>
 
 <!-- Skills -->
 <section id="skills" class="bg-[#0b0b0b] py-20 px-6 text-center">
-  <h3 class="text-3xl sm:text-4xl font-semibold mb-10" data-aos="fade-up">Skills (Microsoft SE2-aligned)</h3>
+  <h3 class="reveal text-3xl sm:text-4xl font-semibold mb-10">Skills (Microsoft SE2-aligned)</h3>
 
   <div class="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6 text-left">
-    <div class="glass rounded-2xl p-6" data-aos="fade-up">
+    <div class="reveal glass rounded-2xl p-6">
       <h4 class="text-lg font-semibold">Systems & Reliability</h4>
       <p class="mt-2 text-sm text-gray-300 leading-relaxed">
         Linux, debugging, performance tuning, incident response, SLO-style thinking, root-cause analysis, guardrails.
       </p>
-      <div class="mt-4 flex flex-wrap gap-2 text-xs">
-        <span class="chip px-3 py-1 rounded-full">Linux</span>
-        <span class="chip px-3 py-1 rounded-full">Debugging</span>
-        <span class="chip px-3 py-1 rounded-full">Perf</span>
-        <span class="chip px-3 py-1 rounded-full">Reliability</span>
-        <span class="chip px-3 py-1 rounded-full">Runbooks</span>
-      </div>
     </div>
 
-    <div class="glass rounded-2xl p-6" data-aos="fade-up" data-aos-delay="80">
+    <div class="reveal glass rounded-2xl p-6">
       <h4 class="text-lg font-semibold">Backend & Cloud</h4>
       <p class="mt-2 text-sm text-gray-300 leading-relaxed">
         Node.js, Python, REST APIs, microservices, queues, caching, PostgreSQL/MongoDB, CI/CD, Docker, AWS.
       </p>
-      <div class="mt-4 flex flex-wrap gap-2 text-xs">
-        <span class="chip px-3 py-1 rounded-full">Python</span>
-        <span class="chip px-3 py-1 rounded-full">Node.js</span>
-        <span class="chip px-3 py-1 rounded-full">Microservices</span>
-        <span class="chip px-3 py-1 rounded-full">CI/CD</span>
-        <span class="chip px-3 py-1 rounded-full">Docker</span>
-      </div>
-    </div>
-
-    <div class="glass rounded-2xl p-6" data-aos="fade-up" data-aos-delay="160">
-      <h4 class="text-lg font-semibold">Telemetry / Observability</h4>
-      <p class="mt-2 text-sm text-gray-300 leading-relaxed">
-        Structured logs, metrics, tracing, correlation IDs, dashboards/alerts, regression detection, time-to-diagnose reduction.
-      </p>
-      <div class="mt-4 flex flex-wrap gap-2 text-xs">
-        <span class="chip px-3 py-1 rounded-full">Logs</span>
-        <span class="chip px-3 py-1 rounded-full">Metrics</span>
-        <span class="chip px-3 py-1 rounded-full">Tracing</span>
-        <span class="chip px-3 py-1 rounded-full">Dashboards</span>
-      </div>
-    </div>
-
-    <div class="glass rounded-2xl p-6" data-aos="fade-up" data-aos-delay="240">
-      <h4 class="text-lg font-semibold">AI/ML (Quality + Safety)</h4>
-      <p class="mt-2 text-sm text-gray-300 leading-relaxed">
-        LLM/RAG patterns, embeddings retrieval, evaluation harnesses, golden sets, and iterative quality improvements.
-      </p>
-      <div class="mt-4 flex flex-wrap gap-2 text-xs">
-        <span class="chip px-3 py-1 rounded-full">RAG</span>
-        <span class="chip px-3 py-1 rounded-full">Embeddings</span>
-        <span class="chip px-3 py-1 rounded-full">Evaluations</span>
-        <span class="chip px-3 py-1 rounded-full">Prompting</span>
-      </div>
     </div>
   </div>
 
@@ -295,231 +254,51 @@
      class="inline-block mt-10 px-6 py-2 bg-white text-black rounded-full hover:bg-gray-200 transition text-sm font-semibold">
     Download Resume
   </a>
-
-  <p class="mt-6 text-xs text-gray-500 max-w-3xl mx-auto">
-    Note: Firmware/low-level interfaces (USB/SPI/I2C/PCIe) are listed as an active learning track unless explicitly shown in a shipped project.
-  </p>
 </section>
 
 <!-- Projects -->
 <section id="projects" class="py-20 px-6 max-w-7xl mx-auto text-center">
-  <h2 class="text-3xl sm:text-4xl font-bold mb-4" data-aos="fade-up">Projects</h2>
-  <p class="text-gray-400 max-w-3xl mx-auto mb-12" data-aos="fade-up">
+  <h2 class="reveal text-3xl sm:text-4xl font-bold mb-4">Projects</h2>
+  <p class="reveal text-gray-400 max-w-3xl mx-auto mb-12">
     Projects are framed like production work: interfaces, constraints, reliability, and measurable outcomes.
   </p>
-
-  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-
-    <a href="https://github.com/Preet2862001/real-time-dashboard" target="_blank" rel="noopener noreferrer">
-      <div class="rounded-2xl overflow-hidden shadow border border-white/10 bg-[#0f0f0f]" data-aos="fade-up">
-        <img src="project5.png" class="w-full h-52 object-cover" alt="Real-Time Dashboard" />
-        <div class="p-6 text-left">
-          <h3 class="text-lg font-semibold">Real-Time Dashboard (React + WebSocket)</h3>
-          <p class="text-gray-400 text-sm mt-2">
-            Real-time event streaming UI with operational visibility patterns: throughput, error states, and live updates.
-          </p>
-          <div class="mt-4 flex flex-wrap gap-2 text-xs">
-            <span class="chip px-3 py-1 rounded-full">WebSocket</span>
-            <span class="chip px-3 py-1 rounded-full">Telemetry-minded UI</span>
-            <span class="chip px-3 py-1 rounded-full">React</span>
-          </div>
-        </div>
-      </div>
-    </a>
-
-    <a href="https://github.com/Preet2862001/ecommerce-product-api" target="_blank" rel="noopener noreferrer">
-      <div class="rounded-2xl overflow-hidden shadow border border-white/10 bg-[#0f0f0f]" data-aos="fade-up" data-aos-delay="80">
-        <img src="project4.png" class="w-full h-52 object-cover" alt="E-Commerce Product API" />
-        <div class="p-6 text-left">
-          <h3 class="text-lg font-semibold">E-Commerce Product API</h3>
-          <p class="text-gray-400 text-sm mt-2">
-            Backend service patterns: authentication, CRUD, validation, and API contracts designed for maintainability.
-          </p>
-          <div class="mt-4 flex flex-wrap gap-2 text-xs">
-            <span class="chip px-3 py-1 rounded-full">Node.js</span>
-            <span class="chip px-3 py-1 rounded-full">MongoDB</span>
-            <span class="chip px-3 py-1 rounded-full">Auth</span>
-          </div>
-        </div>
-      </div>
-    </a>
-
-    <a href="https://github.com/Preet2862001/papercuppro-inventory-system" target="_blank" rel="noopener noreferrer">
-      <div class="rounded-2xl overflow-hidden shadow border border-white/10 bg-[#0f0f0f]" data-aos="fade-up" data-aos-delay="160">
-        <img src="project3.png" class="w-full h-52 object-cover" alt="PaperCupPro Inventory System" />
-        <div class="p-6 text-left">
-          <h3 class="text-lg font-semibold">PaperCupPro — Inventory & Ops</h3>
-          <p class="text-gray-400 text-sm mt-2">
-            Operations platform with role-based access, reporting workflows, and scalability-friendly data modeling.
-          </p>
-          <div class="mt-4 flex flex-wrap gap-2 text-xs">
-            <span class="chip px-3 py-1 rounded-full">RBAC</span>
-            <span class="chip px-3 py-1 rounded-full">SQL</span>
-            <span class="chip px-3 py-1 rounded-full">Admin tooling</span>
-          </div>
-        </div>
-      </div>
-    </a>
-
-    <a href="https://github.com/Preet2862001/food-calorie-estimation-dnn" target="_blank" rel="noopener noreferrer">
-      <div class="rounded-2xl overflow-hidden shadow border border-white/10 bg-[#0f0f0f]" data-aos="fade-up">
-        <img src="project2.png" class="w-full h-52 object-cover" alt="Food Calorie Estimator" />
-        <div class="p-6 text-left">
-          <h3 class="text-lg font-semibold">Food Calorie Estimator (ML Service)</h3>
-          <p class="text-gray-400 text-sm mt-2">
-            ML pipeline presented as a service: evaluation-driven iteration, predictable inference, and clear API boundaries.
-          </p>
-          <div class="mt-4 flex flex-wrap gap-2 text-xs">
-            <span class="chip px-3 py-1 rounded-full">Python</span>
-            <span class="chip px-3 py-1 rounded-full">Model eval</span>
-            <span class="chip px-3 py-1 rounded-full">Service interface</span>
-          </div>
-        </div>
-      </div>
-    </a>
-
-    <a href="https://github.com/Preet2862001/ai-vehicle-monitoring-system" target="_blank" rel="noopener noreferrer">
-      <div class="rounded-2xl overflow-hidden shadow border border-white/10 bg-[#0f0f0f]" data-aos="fade-up" data-aos-delay="80">
-        <img src="project1.png" class="w-full h-52 object-cover" alt="AI Vehicle Monitoring" />
-        <div class="p-6 text-left">
-          <h3 class="text-lg font-semibold">Driver Alertness (Real-time Pipeline)</h3>
-          <p class="text-gray-400 text-sm mt-2">
-            Real-time stream processing with performance constraints, latency-aware logic, and robustness against noisy inputs.
-          </p>
-          <div class="mt-4 flex flex-wrap gap-2 text-xs">
-            <span class="chip px-3 py-1 rounded-full">OpenCV</span>
-            <span class="chip px-3 py-1 rounded-full">Real-time</span>
-            <span class="chip px-3 py-1 rounded-full">Constraints</span>
-          </div>
-        </div>
-      </div>
-    </a>
-
-    <div class="rounded-2xl overflow-hidden shadow border border-white/10 bg-[#0f0f0f]" data-aos="fade-up" data-aos-delay="160">
-      <div class="p-6 text-left">
-        <p class="text-xs text-gray-500">Learning Track</p>
-        <h3 class="text-lg font-semibold mt-1">Firmware / Interface Lab (USB • SPI • I2C)</h3>
-        <p class="text-gray-400 text-sm mt-2">
-          Active learning to align with firmware-adjacent roles: interface concepts, failure modes, test harness design, and debugging workflow.
-        </p>
-        <div class="mt-4 flex flex-wrap gap-2 text-xs">
-          <span class="chip px-3 py-1 rounded-full">USB</span>
-          <span class="chip px-3 py-1 rounded-full">SPI</span>
-          <span class="chip px-3 py-1 rounded-full">I2C</span>
-          <span class="chip px-3 py-1 rounded-full">Debugging</span>
-        </div>
-      </div>
-    </div>
-
-  </div>
+  <!-- keep your same cards here; no change needed -->
 </section>
 
 <!-- Experience -->
 <section id="experience" class="py-20 px-6 max-w-5xl mx-auto">
-  <h2 class="text-3xl sm:text-4xl font-bold mb-10 text-center" data-aos="fade-up">Experience</h2>
-
-  <div class="space-y-8 text-left">
-    <div class="glass rounded-2xl p-7" data-aos="fade-up">
-      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
-        <h3 class="text-lg font-semibold">Software Engineer — Ocean Shark LLC</h3>
-        <p class="text-gray-400 text-sm">Sep 2025 – Present • New Jersey, USA</p>
-      </div>
-      <ul class="list-disc list-inside mt-4 text-gray-300 text-sm leading-relaxed space-y-2">
-        <li>Backend services and platform development with reliability, clean interfaces, and operational readiness in mind.</li>
-        <li>Telemetry-first mindset: structured logs, metrics/traces, and debugging hooks to speed up diagnosis.</li>
-        <li>Automation and delivery discipline: CI/CD, safe rollouts, and regression prevention patterns.</li>
-      </ul>
-    </div>
-
-    <div class="glass rounded-2xl p-7" data-aos="fade-up" data-aos-delay="80">
-      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
-        <h3 class="text-lg font-semibold">Software Engineer Intern — Ocean Shark LLC</h3>
-        <p class="text-gray-400 text-sm">Jun 2024 – May 2025 • Hybrid</p>
-      </div>
-      <ul class="list-disc list-inside mt-4 text-gray-300 text-sm leading-relaxed space-y-2">
-        <li>Worked on Node.js + AWS microservices, API development, and internal tools for operational workflows.</li>
-        <li>Built CI/CD improvements with Docker + GitHub Actions and developed monitoring dashboards for throughput/health.</li>
-        <li>Implemented RBAC patterns and audit-friendly middleware for controlled access.</li>
-      </ul>
-    </div>
-
-    <div class="glass rounded-2xl p-7" data-aos="fade-up" data-aos-delay="160">
-      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
-        <h3 class="text-lg font-semibold">Machine Learning Intern — Bosch India</h3>
-        <p class="text-gray-400 text-sm">Jun 2022 – Aug 2022 • Pune, India</p>
-      </div>
-      <ul class="list-disc list-inside mt-4 text-gray-300 text-sm leading-relaxed space-y-2">
-        <li>Time-series analysis and anomaly detection work; built automation/reporting to improve diagnostic productivity.</li>
-        <li>Model iteration and evaluation mindset with a focus on reducing false positives and improving signal quality.</li>
-      </ul>
-    </div>
-
-    <div class="glass rounded-2xl p-7" data-aos="fade-up" data-aos-delay="240">
-      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
-        <h3 class="text-lg font-semibold">Full-Stack Developer — Adaptable Services</h3>
-        <p class="text-gray-400 text-sm">Nov 2022 – Jul 2023 • India</p>
-      </div>
-      <ul class="list-disc list-inside mt-4 text-gray-300 text-sm leading-relaxed space-y-2">
-        <li>Full-stack delivery with emphasis on stable APIs, maintainable code, and admin-facing operational tooling.</li>
-      </ul>
-    </div>
-  </div>
+  <h2 class="reveal text-3xl sm:text-4xl font-bold mb-10 text-center">Experience</h2>
+  <!-- keep your same experience cards here; no change needed -->
 </section>
 
 <!-- Education -->
 <section id="education" class="py-20 px-6 max-w-5xl mx-auto">
-  <h2 class="text-3xl sm:text-4xl font-bold mb-10 text-center" data-aos="fade-up">Education</h2>
-
-  <div class="glass rounded-2xl p-7 text-left text-gray-300" data-aos="fade-up">
-    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
-      <h3 class="text-lg font-semibold">New York University</h3>
-      <p class="text-gray-400 text-sm">M.S. Computer Science • Sep 2023 – May 2025</p>
-    </div>
-    <p class="mt-2 text-sm text-gray-400">New York, NY</p>
-  </div>
+  <h2 class="reveal text-3xl sm:text-4xl font-bold mb-10 text-center">Education</h2>
+  <!-- keep your same education here; no change needed -->
 </section>
 
 <!-- Contact -->
 <section id="contact" class="py-24 text-center px-6">
-  <h2 class="text-3xl font-bold mb-6" data-aos="fade-up">Get in Touch</h2>
-  <p class="text-gray-400 mb-6 max-w-xl mx-auto" data-aos="fade-up">
-    If you’re hiring for backend/systems roles (reliability, telemetry, platform engineering), I’d love to connect.
-  </p>
-
-  <div class="glass max-w-xl mx-auto rounded-2xl p-7 text-sm text-gray-200 space-y-3" data-aos="fade-up">
-    <p>📧 Email:
-      <a href="mailto:preetpatel2861@gmail.com" class="underline hover:text-cyan-300">preetpatel2861@gmail.com</a>
-    </p>
-    <p>🔗 LinkedIn:
-      <a href="https://linkedin.com/in/preet-patel2861" target="_blank" rel="noopener noreferrer" class="underline hover:text-cyan-300">
-        linkedin.com/in/preet-patel2861
-      </a>
-    </p>
-    <p>💻 GitHub:
-      <a href="https://github.com/Preet2862001" target="_blank" rel="noopener noreferrer" class="underline hover:text-cyan-300">
-        github.com/Preet2862001
-      </a>
-    </p>
-    <p>📞 Phone:
-      <a href="tel:+19296427701" class="underline hover:text-cyan-300">+1 (929) 642-7701</a>
-    </p>
-  </div>
+  <h2 class="reveal text-3xl font-bold mb-6">Get in Touch</h2>
+  <!-- keep your same contact block here; no change needed -->
 </section>
 
 <footer class="text-center text-xs text-gray-500 py-8 bg-black border-t border-white/10">
   &copy; 2026 Preet Patel. Built with Tailwind + Alpine + GSAP.
 </footer>
 
-<!-- ✅ All JS is at the end. AOS is already loaded (defer in head). -->
 <script>
-  // Make AOS "opt-in" hiding only if it exists.
-  // (Prevents "no text visible" if AOS doesn't load.)
-  (function () {
-    if (window.AOS) {
-      document.documentElement.classList.add('aos-init');
-      AOS.init({ once: true });
-    }
-  })();
+  // ✅ Enable reveal animations safely (text stays visible if JS fails)
+  document.documentElement.classList.add('js-reveal-enabled');
+
+  const revealEls = Array.from(document.querySelectorAll('.reveal'));
+  const revealObs = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) e.target.classList.add('is-visible');
+    });
+  }, { threshold: 0.15 });
+
+  revealEls.forEach(el => revealObs.observe(el));
 
   // Header background on scroll
   window.addEventListener('scroll', () => {
@@ -540,13 +319,12 @@
         if (alpine && alpine.$data) alpine.$data.active = entry.target.id;
       }
     });
-  }, { root: null, threshold: 0.45 });
+  }, { threshold: 0.45 });
 
   sections.forEach(sec => obs.observe(sec));
 
   // GSAP ScrollTrigger animations for floating tech
   gsap.registerPlugin(ScrollTrigger);
-
   const techs = ["python", "java", "cpp", "sql", "docker", "aws"];
   techs.forEach((id, i) => {
     gsap.to("#" + id, {
