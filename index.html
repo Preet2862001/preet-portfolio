@@ -2,1216 +2,978 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <meta name="color-scheme" content="dark" />
-  <title>Preet Patel — Backend • Distributed Systems • Reliability</title>
-  <meta name="description" content="Backend / Systems Engineer — reliability-minded microservices, observability, CI/CD, and production debugging." />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Preet Patel — Backend / Distributed Systems / Reliability</title>
+  <meta name="description" content="Preet Patel — Backend & Distributed Systems engineer. Reliability-first services, observability, CI/CD, and production debugging." />
+  <meta name="theme-color" content="#000000" />
 
   <style>
-    /* =========================
-       Core theme (no external libs)
-       ========================= */
     :root{
-      --bg:#07070a;
-      --panel: rgba(255,255,255,.06);
-      --panel2: rgba(255,255,255,.08);
-      --border: rgba(255,255,255,.12);
-      --text: rgba(255,255,255,.92);
-      --muted: rgba(255,255,255,.66);
-      --muted2: rgba(255,255,255,.50);
-      --shadow: 0 20px 60px rgba(0,0,0,.55);
-      --ring: 0 0 0 3px rgba(255,255,255,.10);
-      --radius: 18px;
-
-      --c1: #22d3ee; /* cyan */
-      --c2: #a855f7; /* purple */
-      --c3: #fb923c; /* orange */
+      --bg:#000;
+      --panel:rgba(18,18,18,.72);
+      --panel2:rgba(255,255,255,.06);
+      --border:rgba(255,255,255,.12);
+      --muted:rgba(255,255,255,.70);
+      --muted2:rgba(255,255,255,.55);
+      --text:#fff;
+      --shadow:0 18px 60px rgba(0,0,0,.55);
+      --radius:18px;
+      --radius2:24px;
+      --max:1100px;
     }
-
-    *{ box-sizing:border-box; }
-    html,body{ height:100%; }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    html{scroll-behavior:smooth}
     body{
       margin:0;
-      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
-      background: radial-gradient(900px 480px at 18% 10%, rgba(34,211,238,.16), transparent 60%),
-                  radial-gradient(900px 520px at 82% 22%, rgba(168,85,247,.16), transparent 60%),
-                  radial-gradient(820px 520px at 52% 92%, rgba(251,146,60,.12), transparent 55%),
-                  var(--bg);
+      background:
+        radial-gradient(900px 500px at 18% 6%, rgba(34,211,238,.18), transparent 60%),
+        radial-gradient(900px 500px at 82% 22%, rgba(168,85,247,.18), transparent 60%),
+        radial-gradient(700px 520px at 50% 92%, rgba(251,146,60,.12), transparent 55%),
+        #000;
       color:var(--text);
+      font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Inter,Arial,sans-serif;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
       overflow-x:hidden;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
     }
-
-    a{ color:inherit; text-decoration:none; }
-    a.underline{ text-decoration:underline; text-underline-offset:3px; }
-    .container{ width:min(1120px, calc(100% - 40px)); margin:0 auto; }
-
-    /* =========================
-       Header
-       ========================= */
-    .header{
-      position:fixed; top:0; left:0; right:0;
-      z-index:50;
+    a{color:inherit}
+    .wrap{max-width:var(--max); margin:0 auto; padding:0 18px;}
+    .chip{
+      display:inline-flex; align-items:center; gap:8px;
+      border:1px solid var(--border);
+      background:var(--panel2);
+      padding:8px 12px; border-radius:999px;
+      font-size:12px; color:rgba(255,255,255,.78);
+      user-select:none;
+    }
+    .glass{
+      background:var(--panel);
+      border:1px solid var(--border);
       backdrop-filter: blur(14px);
       -webkit-backdrop-filter: blur(14px);
-      background: rgba(0,0,0,.45);
-      border-bottom: 1px solid rgba(255,255,255,.10);
+      border-radius:var(--radius2);
+      box-shadow:var(--shadow);
     }
-    .header.scrolled{
-      background: rgba(0,0,0,.72);
-      box-shadow: 0 8px 30px rgba(0,0,0,.55);
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center; gap:8px;
+      padding:10px 14px;
+      border-radius:999px;
+      border:1px solid var(--border);
+      background:rgba(255,255,255,.06);
+      color:#fff;
+      font-weight:600;
+      font-size:12.5px;
+      letter-spacing:.2px;
+      cursor:pointer;
+      transition: transform .15s ease, background .15s ease, border-color .15s ease;
+      text-decoration:none;
+      white-space:nowrap;
+    }
+    .btn:hover{transform:translateY(-1px); background:rgba(255,255,255,.09); border-color:rgba(255,255,255,.18)}
+    .btn.primary{background:#fff; color:#000; border-color:#fff}
+    .btn.primary:hover{background:#eaeaea}
+    .btn:active{transform:translateY(0)}
+    .muted{color:var(--muted)}
+    .muted2{color:var(--muted2)}
+    .kicker{font-size:12px; letter-spacing:.18em; text-transform:uppercase; color:rgba(255,255,255,.62)}
+    h1,h2,h3{margin:0}
+    .titleGrad{
+      background:linear-gradient(90deg, rgba(34,211,238,1), rgba(168,85,247,1), rgba(251,146,60,1));
+      -webkit-background-clip:text;
+      background-clip:text;
+      color:transparent;
     }
 
+    /* HEADER */
+    .siteHeader{
+      position:fixed; top:0; left:0; right:0; z-index:50;
+      border-bottom:1px solid rgba(255,255,255,.08);
+      background:rgba(0,0,0,.55);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+    }
     .headerBar{
       display:flex;
       align-items:center;
       justify-content:space-between;
-      gap:14px;
-      padding:14px 0;
+      gap:12px;
+      padding:12px 0;
     }
-
     .brand{
-      display:flex; align-items:center; gap:10px;
-      min-width: 220px;
+      display:flex; align-items:center; gap:10px; min-width:0;
     }
     .avatar{
-      width:36px; height:36px;
-      border-radius:999px;
-      border: 1px solid rgba(255,255,255,.14);
-      background: rgba(255,255,255,.06);
-      display:grid; place-items:center;
-      font-weight:700; font-size:12px;
-      letter-spacing:.08em;
+      width:34px; height:34px; border-radius:999px;
+      border:1px solid rgba(255,255,255,.14);
+      background:rgba(255,255,255,.06);
+      display:flex; align-items:center; justify-content:center;
+      font-size:11px; font-weight:800; letter-spacing:.12em;
+      flex:0 0 auto;
     }
-    .brandText{ display:flex; flex-direction:column; line-height:1.05; }
-    .brandText .name{ font-weight:700; font-size:14px; letter-spacing:.03em; }
-    .brandText .tag{ font-size:11px; color:var(--muted2); margin-top:3px; }
+    .brandText{min-width:0}
+    .brandName{font-weight:800; font-size:13px; line-height:1}
+    .brandSub{font-size:11px; color:rgba(255,255,255,.65); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:40vw}
 
     .nav{
-      display:flex;
-      align-items:center;
-      gap:14px;
-      flex: 1;
+      display:flex; align-items:center; gap:16px;
+      flex:1;
       min-width:0;
       justify-content:center;
     }
     .nav a{
-      font-size:12px;
-      color: var(--muted);
-      padding:8px 10px;
-      border-radius: 999px;
-      border: 1px solid transparent;
-      transition: 160ms ease;
+      font-size:12.5px;
+      color:rgba(255,255,255,.78);
+      text-decoration:none;
+      padding:8px 0;
+      position:relative;
       white-space:nowrap;
     }
-    .nav a:hover{
-      color:var(--text);
-      border-color: rgba(255,255,255,.12);
-      background: rgba(255,255,255,.05);
+    .nav a:hover{color:#fff}
+    .nav a::after{
+      content:"";
+      position:absolute;
+      left:0;
+      bottom:0;
+      height:2px;
+      width:0%;
+      background:rgba(255,255,255,.9);
+      transition:width .18s ease;
     }
-    .nav a.active{
-      color:var(--text);
-      border-color: rgba(255,255,255,.18);
-      background: rgba(255,255,255,.07);
-    }
+    .nav a.active::after{width:100%}
 
     .headerActions{
       display:flex;
       align-items:center;
       gap:10px;
-      flex-wrap:wrap;            /* fixes overlap */
+      flex-wrap:wrap;        /* KEY: prevents overlap */
       justify-content:flex-end;
-      min-width: 260px;
     }
+    .headerActions .btn{padding:10px 12px; font-size:12px; line-height:1}
+    .menuBtn{display:none}
 
-    .btn{
-      display:inline-flex; align-items:center; justify-content:center; gap:8px;
-      padding:10px 12px;
-      font-size:12px;
-      line-height:1;
-      border-radius: 999px;
-      border: 1px solid rgba(255,255,255,.14);
-      background: rgba(255,255,255,.06);
-      color: var(--text);
-      cursor:pointer;
-      transition: 160ms ease;
-      user-select:none;
-      white-space:nowrap;
-    }
-    .btn:hover{ background: rgba(255,255,255,.09); border-color: rgba(255,255,255,.20); }
-    .btn:focus{ outline:none; box-shadow: var(--ring); }
-    .btn.primary{
-      background: linear-gradient(135deg, rgba(34,211,238,.24), rgba(168,85,247,.22), rgba(251,146,60,.18));
-      border-color: rgba(255,255,255,.20);
-    }
-
-    .menuBtn{ display:none; }
-
-    /* Mobile header */
-    @media (max-width: 980px){
-      .nav{ display:none; }
-      .menuBtn{ display:inline-flex; }
-      /* Hide header copy buttons on smaller screens (use hero action bar instead) */
-      .headerActions .copyBtn{ display:none; }
-      .headerActions{ min-width:auto; }
-      .brand{ min-width:auto; }
-    }
-
-    .mobileMenu{
+    /* MOBILE NAV */
+    .mobilePanel{
       display:none;
-      border-top: 1px solid rgba(255,255,255,.10);
-      background: rgba(0,0,0,.88);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
+      border-top:1px solid rgba(255,255,255,.08);
+      background:rgba(0,0,0,.88);
     }
-    .mobileMenu.open{ display:block; }
-    .mobileMenu .wrap{
-      padding: 12px 0 16px;
-      display:grid;
-      grid-template-columns: 1fr 1fr;
-      gap:10px;
+    .mobilePanel .inner{
+      display:flex; flex-direction:column; gap:10px;
+      padding:14px 0 18px;
     }
-    .mobileMenu a{
+    .mobilePanel a{
+      text-decoration:none;
+      padding:10px 12px;
+      border:1px solid rgba(255,255,255,.10);
+      background:rgba(255,255,255,.05);
+      border-radius:12px;
+      color:rgba(255,255,255,.82);
       font-size:13px;
-      color: var(--muted);
-      border: 1px solid rgba(255,255,255,.12);
-      background: rgba(255,255,255,.05);
-      border-radius: 14px;
-      padding: 12px;
-      transition: 160ms ease;
     }
-    .mobileMenu a:hover{ color:var(--text); background: rgba(255,255,255,.08); }
 
-    /* =========================
-       Sections & cards
-       ========================= */
-    section{ padding: 78px 0; }
-    .hero{ padding-top: 112px; padding-bottom: 70px; }
-    .grid2{ display:grid; grid-template-columns: 1.2fr .8fr; gap:16px; align-items:start; }
-    @media (max-width: 980px){ .grid2{ grid-template-columns: 1fr; } }
-
-    .h1{
-      font-size: clamp(34px, 4vw, 56px);
+    /* HERO */
+    .hero{
+      padding-top:92px;
+      padding-bottom:34px;
+    }
+    .heroGrid{
+      display:grid;
+      grid-template-columns: 1.25fr .75fr;
+      gap:18px;
+      align-items:stretch;
+    }
+    .heroMain{padding:26px}
+    .heroMain h1{
+      font-size:44px;
       line-height:1.05;
-      margin: 0;
-      letter-spacing: -.02em;
+      letter-spacing:-.03em;
+      margin-top:10px;
     }
-    .grad{
-      background: linear-gradient(90deg, var(--c1), var(--c2), var(--c3));
-      -webkit-background-clip:text;
-      background-clip:text;
-      color: transparent;
+    .heroMain p{
+      margin:14px 0 0;
+      font-size:15px;
+      line-height:1.65;
+      color:rgba(255,255,255,.78);
+      max-width:60ch;
     }
-    .lead{
-      margin-top: 14px;
-      font-size: 15px;
-      line-height:1.6;
-      color: var(--muted);
-      max-width: 60ch;
-    }
+    .heroChips{margin-top:16px; display:flex; flex-wrap:wrap; gap:8px}
+    .heroCTA{margin-top:18px; display:flex; flex-wrap:wrap; gap:10px}
 
-    .chips{ display:flex; flex-wrap:wrap; gap:10px; margin-top:18px; }
-    .chip{
-      font-size:12px;
-      color: rgba(255,255,255,.80);
-      border: 1px solid rgba(255,255,255,.12);
-      background: rgba(255,255,255,.06);
-      padding: 8px 10px;
-      border-radius: 999px;
-    }
-
-    .card{
-      border-radius: var(--radius);
-      background: var(--panel);
-      border: 1px solid var(--border);
-      box-shadow: var(--shadow);
-    }
-    .card.pad{ padding: 18px; }
-    .card.pad2{ padding: 22px; }
-
-    .muted{ color: var(--muted); }
-    .muted2{ color: var(--muted2); }
-
-    .row{
-      display:flex; align-items:center; justify-content:space-between; gap:12px;
-    }
-
-    .heroRight{
+    .heroSide{
+      padding:22px;
       display:flex;
       flex-direction:column;
-      gap:12px;
+      justify-content:space-between;
+      gap:14px;
     }
-    .mini{
-      font-size:12px; color: var(--muted2); line-height:1.5;
-    }
-    .ctaRow{ display:flex; flex-wrap:wrap; gap:10px; margin-top: 18px; }
-    .divider{
-      height:1px; background: rgba(255,255,255,.10); margin: 12px 0;
-    }
-
-    /* Proof strip */
-    .proofGrid{
+    .proofStrip{
       display:grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap:12px;
-      margin-top: 12px;
+      grid-template-columns:repeat(3,1fr);
+      gap:10px;
     }
-    @media (max-width: 980px){ .proofGrid{ grid-template-columns: 1fr; } }
-    .stat{
-      padding: 18px;
-      border-radius: 16px;
-      border: 1px solid rgba(255,255,255,.12);
-      background: rgba(255,255,255,.06);
+    .proof{
+      border:1px solid rgba(255,255,255,.10);
+      background:rgba(255,255,255,.05);
+      border-radius:16px;
+      padding:14px 12px;
+      text-align:left;
     }
-    .statNum{
-      font-size: 26px;
-      font-weight: 800;
-      letter-spacing: -.02em;
+    .proof .num{
+      font-size:22px;
+      font-weight:900;
+      letter-spacing:-.02em;
     }
-    .statLbl{ font-size: 12px; color: var(--muted); margin-top: 6px; line-height:1.4; }
-
-    /* What I build cards */
-    .buildGrid{
-      display:grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap:12px;
-      margin-top: 12px;
-    }
-    @media (max-width: 980px){ .buildGrid{ grid-template-columns: 1fr; } }
-    .buildCard h3{ margin: 0 0 8px; font-size: 14px; }
-    .buildCard p{ margin: 0 0 10px; font-size: 12px; color: var(--muted); line-height:1.5; }
-    .tags{ display:flex; flex-wrap:wrap; gap:8px; }
-    .tag{
+    .proof .lbl{
+      margin-top:6px;
       font-size:11px;
-      padding:6px 8px;
-      border-radius: 999px;
-      border: 1px solid rgba(255,255,255,.12);
-      background: rgba(255,255,255,.06);
-      color: rgba(255,255,255,.78);
+      color:rgba(255,255,255,.65);
+      line-height:1.35;
+    }
+    .quickLinks{
+      display:flex; flex-wrap:wrap; gap:10px;
+    }
+    .tiny{
+      font-size:12px; color:rgba(255,255,255,.70);
+      line-height:1.5;
     }
 
-    /* Architecture */
+    /* SECTIONS */
+    section{padding:28px 0}
+    .secHead{
+      display:flex;
+      align-items:flex-end;
+      justify-content:space-between;
+      gap:14px;
+      margin-bottom:14px;
+    }
+    .secHead h2{
+      font-size:22px;
+      letter-spacing:-.02em;
+    }
+    .grid3{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:12px;
+    }
+    .card{padding:18px}
+    .card h3{font-size:15px; letter-spacing:-.01em}
+    .card p{margin:10px 0 0; font-size:13px; line-height:1.6; color:rgba(255,255,255,.75)}
+    .tags{margin-top:12px; display:flex; flex-wrap:wrap; gap:8px}
+    .tag{font-size:11px; padding:6px 10px; border-radius:999px; border:1px solid rgba(255,255,255,.12); background:rgba(255,255,255,.05); color:rgba(255,255,255,.72)}
+
+    /* ARCHITECTURE */
     .archGrid{
       display:grid;
-      grid-template-columns: 1.1fr .9fr;
+      grid-template-columns: 1.05fr .95fr;
       gap:12px;
-      align-items:start;
-      margin-top: 12px;
+      align-items:stretch;
     }
-    @media (max-width: 980px){
-      .archGrid{ grid-template-columns:1fr; }
-      .archSide{ order:1; }
-      .archCanvas{ order:2; }
+    .archCanvas{padding:18px}
+    .archSide{padding:18px}
+    .archHint{font-size:12px; color:rgba(255,255,255,.62); margin-top:6px}
+    .archPanel{
+      margin-top:12px;
+      border:1px solid rgba(255,255,255,.10);
+      background:rgba(255,255,255,.05);
+      border-radius:18px;
+      padding:14px;
     }
-    .archHint{ font-size:12px; color: var(--muted2); margin-top:6px; }
-    .archPanel h3{ margin:0; font-size:14px; }
-    .archPanel p{ margin: 10px 0 0; font-size: 12px; color: var(--muted); line-height:1.6; }
-    .archList{ margin: 12px 0 0; padding-left: 16px; color: var(--muted); font-size: 12px; line-height:1.6; }
-    .archBadge{ display:inline-flex; align-items:center; gap:8px; margin-top: 12px; }
-    .dot{
-      width: 9px; height: 9px; border-radius:999px;
-      background: linear-gradient(90deg, var(--c1), var(--c2), var(--c3));
-      box-shadow: 0 0 0 3px rgba(255,255,255,.08);
-    }
-
-    svg{ width:100%; height:auto; display:block; }
+    .archTitle{font-weight:900; letter-spacing:-.02em}
+    .archBody{margin-top:8px; font-size:13px; color:rgba(255,255,255,.72); line-height:1.6}
+    .archList{margin:10px 0 0; padding:0 0 0 16px; color:rgba(255,255,255,.70); font-size:12.5px; line-height:1.7}
+    .archSvg{width:100%; height:auto; display:block}
     .node{
       cursor:pointer;
-      transition: 160ms ease;
+      transition: transform .12s ease, filter .12s ease;
+      transform-origin:center;
     }
+    .node:hover{filter:drop-shadow(0 10px 26px rgba(0,0,0,.55)); transform:translateY(-1px)}
     .node rect{
       fill: rgba(255,255,255,.06);
-      stroke: rgba(255,255,255,.16);
-      stroke-width: 1;
-    }
-    .node:hover rect{
-      fill: rgba(255,255,255,.09);
-      stroke: rgba(255,255,255,.28);
+      stroke: rgba(255,255,255,.18);
+      stroke-width:1.2;
+      rx:14; ry:14;
     }
     .node.active rect{
-      fill: rgba(255,255,255,.11);
-      stroke: rgba(255,255,255,.34);
+      stroke: rgba(255,255,255,.70);
+      fill: rgba(255,255,255,.10);
+    }
+    .node text{
+      fill: rgba(255,255,255,.88);
+      font-size:12.5px;
+      font-weight:700;
     }
     .edge{
       stroke: rgba(255,255,255,.22);
-      stroke-width: 2;
-      marker-end: url(#arrow);
-      transition: 160ms ease;
+      stroke-width:2;
+      fill:none;
+      marker-end:url(#arrow);
+      transition: stroke .12s ease, opacity .12s ease;
+      opacity:.85;
     }
-    .edge.hot{
-      stroke: rgba(34,211,238,.65);
-      filter: drop-shadow(0 6px 14px rgba(34,211,238,.20));
-    }
-    .label{
-      font-size: 12px;
-      fill: rgba(255,255,255,.86);
-      font-weight: 650;
-      letter-spacing: .01em;
-    }
-    .sublabel{
-      font-size: 10px;
-      fill: rgba(255,255,255,.55);
-    }
+    .edge.active{stroke: rgba(34,211,238,.85); opacity:1}
 
-    /* Experience */
-    .timeline{ display:flex; flex-direction:column; gap:12px; margin-top: 12px; }
-    .role h3{ margin:0; font-size: 14px; }
-    .role .meta{ margin-top: 6px; font-size: 12px; color: var(--muted2); }
-    .role ul{ margin: 10px 0 0; padding-left: 16px; color: var(--muted); font-size: 12px; line-height:1.7; }
+    /* TIMELINE */
+    .timeline{display:grid; gap:10px}
+    .job{padding:18px}
+    .jobTop{display:flex; justify-content:space-between; gap:10px; flex-wrap:wrap; align-items:baseline}
+    .jobTitle{font-weight:900; letter-spacing:-.02em}
+    .jobMeta{font-size:12px; color:rgba(255,255,255,.62)}
+    .job ul{margin:10px 0 0; padding:0 0 0 18px; color:rgba(255,255,255,.72); font-size:13px; line-height:1.7}
+    .job li{margin:6px 0}
 
-    /* Projects */
+    /* PROJECTS */
     .projGrid{
       display:grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns:repeat(3,1fr);
       gap:12px;
-      margin-top: 12px;
     }
-    @media (max-width: 980px){ .projGrid{ grid-template-columns: 1fr; } }
-    .proj a{ display:block; }
-    .proj h3{ margin:0; font-size: 14px; }
-    .proj p{ margin:8px 0 0; font-size: 12px; color: var(--muted); line-height:1.5; }
-    .proj .footer{
-      display:flex; gap:10px; align-items:center;
-      margin-top: 12px;
-      font-size: 11px;
-      color: var(--muted2);
+    .proj{
+      padding:18px;
+      text-decoration:none;
+      display:flex;
+      flex-direction:column;
+      gap:10px;
     }
+    .proj h3{font-size:15px}
+    .proj p{margin:0; font-size:13px; line-height:1.6; color:rgba(255,255,255,.73)}
+    .proj .meta{display:flex; flex-wrap:wrap; gap:8px}
 
-    /* Reveal animation */
-    .reveal{ opacity:0; transform: translateY(14px); transition: 520ms ease; }
-    .reveal.in{ opacity:1; transform: translateY(0); }
-
-    /* Respect reduced motion */
-    @media (prefers-reduced-motion: reduce){
-      .reveal{ opacity:1 !important; transform:none !important; transition:none !important; }
-      *{ scroll-behavior:auto !important; }
+    /* REVEAL ANIMATIONS */
+    .reveal{opacity:1; transform:none}
+    @media (prefers-reduced-motion: no-preference){
+      .reveal{opacity:0; transform:translateY(10px); transition:opacity .55s ease, transform .55s ease}
+      .reveal.in{opacity:1; transform:none}
     }
 
-    /* Footer */
-    footer{
-      padding: 26px 0 40px;
-      border-top: 1px solid rgba(255,255,255,.10);
-      color: var(--muted2);
-      font-size: 12px;
-      text-align:center;
+    /* FOOTER */
+    footer{padding:28px 0 40px; border-top:1px solid rgba(255,255,255,.08); color:rgba(255,255,255,.60); font-size:12px}
+
+    /* RESPONSIVE */
+    @media (max-width: 1100px){
+      .brandSub{max-width:34vw}
+    }
+    @media (max-width: 980px){
+      .nav{display:none}
+      .menuBtn{display:inline-flex}
+      .mobilePanel.open{display:block}
+      .heroGrid{grid-template-columns:1fr}
+      .heroMain h1{font-size:38px}
+      .grid3{grid-template-columns:1fr}
+      .projGrid{grid-template-columns:1fr}
+      .archGrid{grid-template-columns:1fr}
+      .archSide{order:1}
+      .archCanvas{order:2}
+      .headerActions .copyBtn{display:none} /* use hero copy buttons on phone */
+    }
+    @media (max-width: 520px){
+      .brandSub{display:none}
+      .heroMain{padding:20px}
+      .heroSide{padding:18px}
+      .proofStrip{grid-template-columns:1fr}
+      .heroMain h1{font-size:34px}
     }
   </style>
 </head>
 
 <body>
-  <!-- =========================
-       HEADER
-       ========================= -->
-  <div class="header" id="siteHeader">
-    <div class="container">
-      <div class="headerBar">
-        <div class="brand">
-          <div class="avatar">PP</div>
-          <div class="brandText">
-            <div class="name">PREET PATEL</div>
-            <div class="tag">Backend • Distributed Systems • Reliability</div>
-          </div>
-        </div>
 
-        <nav class="nav" id="topNav">
-          <a href="#about" data-link="about">About</a>
-          <a href="#proof" data-link="proof">Proof</a>
-          <a href="#architecture" data-link="architecture">Architecture</a>
-          <a href="#skills" data-link="skills">Skills</a>
-          <a href="#work" data-link="work">Work</a>
-          <a href="#projects" data-link="projects">Projects</a>
-          <a href="#contact" data-link="contact">Contact</a>
-        </nav>
+<header class="siteHeader" id="siteHeader">
+  <div class="wrap">
+    <div class="headerBar">
 
-        <div class="headerActions">
-          <button class="btn copyBtn" id="copyLinkedIn" type="button">Copy LinkedIn</button>
-          <button class="btn copyBtn" id="copyGitHub" type="button">Copy GitHub</button>
-          <a class="btn primary" href="Preet_Patel_Resume.pdf" target="_blank" rel="noopener">Resume</a>
-          <button class="btn menuBtn" id="menuBtn" type="button" aria-label="Open menu">Menu</button>
+      <div class="brand">
+        <div class="avatar">PP</div>
+        <div class="brandText">
+          <div class="brandName">PREET PATEL</div>
+          <div class="brandSub">Backend · Distributed Systems · Reliability</div>
         </div>
+      </div>
+
+      <nav class="nav" id="nav">
+        <a href="#about" data-nav="about">About</a>
+        <a href="#proof" data-nav="proof">Proof</a>
+        <a href="#architecture" data-nav="architecture">Architecture</a>
+        <a href="#skills" data-nav="skills">Skills</a>
+        <a href="#work" data-nav="work">Work</a>
+        <a href="#projects" data-nav="projects">Projects</a>
+        <a href="#deep" data-nav="deep">Deep Dive</a>
+      </nav>
+
+      <div class="headerActions">
+        <button class="btn menuBtn" id="menuBtn" type="button" aria-label="Open menu">Menu</button>
+        <button class="btn copyBtn" id="copyLinkedIn" type="button">Copy LinkedIn</button>
+        <button class="btn copyBtn" id="copyGitHub" type="button">Copy GitHub</button>
+        <a class="btn primary" href="Preet_Patel_Resume.pdf" target="_blank" rel="noopener">Resume</a>
+      </div>
+
+    </div>
+
+    <div class="mobilePanel" id="mobilePanel">
+      <div class="inner">
+        <a href="#about">About</a>
+        <a href="#proof">Proof</a>
+        <a href="#architecture">Architecture</a>
+        <a href="#skills">Skills</a>
+        <a href="#work">Work</a>
+        <a href="#projects">Projects</a>
+        <a href="#deep">Deep Dive</a>
+        <a href="Preet_Patel_Resume.pdf" target="_blank" rel="noopener">Open Resume</a>
       </div>
     </div>
 
-    <div class="mobileMenu" id="mobileMenu" aria-hidden="true">
-      <div class="container">
-        <div class="wrap">
-          <a href="#about">About</a>
-          <a href="#proof">Proof</a>
-          <a href="#architecture">Architecture</a>
-          <a href="#skills">Skills</a>
-          <a href="#work">Work</a>
-          <a href="#projects">Projects</a>
-          <a href="#contact">Contact</a>
-          <a href="Preet_Patel_Resume.pdf" target="_blank" rel="noopener">Resume</a>
-        </div>
-      </div>
-    </div>
   </div>
+</header>
 
-  <!-- =========================
-       HERO / ABOUT
-       ========================= -->
-  <section class="hero" id="about">
-    <div class="container grid2">
-      <div class="reveal">
-        <h1 class="h1">Systems-first engineering <span class="grad">built for reliability</span>.</h1>
-        <p class="lead">
-          I build backend + distributed systems with strong operational hygiene: clean APIs, telemetry (logs/metrics/traces),
-          and automation that keeps production predictable.
+<main class="hero" id="about">
+  <div class="wrap">
+    <div class="heroGrid">
+
+      <div class="glass heroMain reveal">
+        <div class="kicker">Systems-first engineering</div>
+        <h1>Reliability-minded backend systems <span class="titleGrad">built to operate</span>.</h1>
+        <p>
+          Software Engineer focused on backend + distributed systems, telemetry (logs/metrics/tracing), and production debugging.
+          I like building services that are measurable, fault-tolerant, and easy to run.
         </p>
 
-        <div class="chips">
-          <span class="chip">Microservices • REST</span>
+        <div class="heroChips">
+          <span class="chip">Microservices & APIs</span>
           <span class="chip">Observability</span>
-          <span class="chip">CI/CD</span>
-          <span class="chip">Postgres • Caching • Queues</span>
-          <span class="chip">Production Debugging</span>
+          <span class="chip">CI/CD discipline</span>
+          <span class="chip">Linux & debugging</span>
+          <span class="chip">RAG/LLM evals</span>
         </div>
 
-        <div class="ctaRow">
-          <a class="btn" href="#contact">Contact</a>
-          <a class="btn" href="#projects">View Projects</a>
-          <a class="btn" href="https://www.linkedin.com/in/preet-patel2861" target="_blank" rel="noopener">LinkedIn</a>
-          <a class="btn" href="https://github.com/Preet2862001" target="_blank" rel="noopener">GitHub</a>
+        <div class="heroCTA">
+          <a class="btn primary" href="#work">View Work</a>
+          <a class="btn" href="#architecture">See Architecture</a>
+          <a class="btn" href="mailto:preetpatel2861@gmail.com">Email</a>
         </div>
 
-        <!-- Mobile-visible copy buttons (prevents header overlap on phones) -->
-        <div class="ctaRow" style="margin-top:10px">
+        <!-- Mobile-visible copy buttons -->
+        <div class="heroCTA" style="margin-top:10px">
           <button class="btn" id="copyLinkedInMobile" type="button">Copy LinkedIn</button>
           <button class="btn" id="copyGitHubMobile" type="button">Copy GitHub</button>
         </div>
 
-        <div class="divider"></div>
-        <div class="mini">
-          Open to backend/systems roles (reliability, observability, platform). Based in Jersey City, NJ.
-        </div>
+        <p class="tiny" style="margin-top:12px">
+          Jersey City, NJ · <span class="muted2">Open to backend / platform / reliability roles</span>
+        </p>
       </div>
 
-      <div class="heroRight reveal">
-        <div class="card pad2">
-          <div class="row">
-            <div>
-              <div style="font-weight:800; letter-spacing:-.01em;">What I optimize for</div>
-              <div class="muted2" style="font-size:12px; margin-top:6px;">Recruiter-scan friendly, SE2-aligned</div>
+      <aside class="glass heroSide reveal">
+        <div>
+          <div class="kicker">Quick proof</div>
+          <div class="proofStrip" id="proof">
+            <div class="proof">
+              <div class="num"><span class="count" data-to="30">0</span>%</div>
+              <div class="lbl">Latency reduction via query + caching strategies</div>
             </div>
-            <div class="chip">SE2-aligned</div>
-          </div>
-
-          <div class="divider"></div>
-
-          <div class="buildGrid" style="grid-template-columns:1fr; margin-top:0">
-            <div class="stat" style="background: rgba(255,255,255,.05);">
-              <div class="muted2" style="font-size:12px;">Core strengths</div>
-              <div style="margin-top:10px; display:flex; flex-wrap:wrap; gap:8px;">
-                <span class="tag">APIs & service boundaries</span>
-                <span class="tag">Debugging & RCA</span>
-                <span class="tag">Telemetry (L/M/T)</span>
-                <span class="tag">CI/CD & safe rollouts</span>
-                <span class="tag">Performance tuning</span>
-                <span class="tag">Runbooks</span>
-              </div>
+            <div class="proof">
+              <div class="num"><span class="count" data-to="45">0</span>%</div>
+              <div class="lbl">Faster diagnosis after tracing + dashboards</div>
+            </div>
+            <div class="proof">
+              <div class="num"><span class="count" data-to="50">0</span>%</div>
+              <div class="lbl">Lower deployment overhead through CI/CD automation</div>
             </div>
           </div>
+        </div>
 
-          <div class="archHint">Tip: scroll down — interactive architecture + proof counters.</div>
+        <div>
+          <div class="kicker">Links</div>
+          <div class="quickLinks">
+            <a class="btn" href="https://github.com/Preet2862001" target="_blank" rel="noopener">GitHub</a>
+            <a class="btn" href="https://www.linkedin.com/in/preet-patel2861" target="_blank" rel="noopener">LinkedIn</a>
+            <a class="btn" href="#contact">Contact</a>
+          </div>
+          <p class="tiny" style="margin-top:12px">
+            Tip: the Architecture section is interactive—click boxes to see reliability decisions.
+          </p>
+        </div>
+      </aside>
+
+    </div>
+  </div>
+</main>
+
+<section id="proof">
+  <div class="wrap">
+    <div class="secHead">
+      <div>
+        <div class="kicker">Proof</div>
+        <h2>What I build and how I measure it</h2>
+      </div>
+      <div class="muted2" style="font-size:12px">Recruiter-scan friendly · systems-first · SE2-aligned</div>
+    </div>
+
+    <div class="grid3">
+      <div class="glass card reveal">
+        <h3>Microservices + APIs</h3>
+        <p>Service boundaries, API contracts, validation, pagination, idempotency, and RBAC patterns designed for long-term maintainability.</p>
+        <div class="tags">
+          <span class="tag">Node.js</span><span class="tag">Python</span><span class="tag">REST</span><span class="tag">RBAC</span>
+        </div>
+      </div>
+      <div class="glass card reveal">
+        <h3>Postgres + caching + queues</h3>
+        <p>Indexing, query tuning, caching strategies, and async processing with event queues to keep systems responsive under load.</p>
+        <div class="tags">
+          <span class="tag">PostgreSQL</span><span class="tag">Redis</span><span class="tag">Queues</span><span class="tag">Caching</span>
+        </div>
+      </div>
+      <div class="glass card reveal">
+        <h3>Observability + on-call readiness</h3>
+        <p>Structured logs, metrics, tracing, dashboards/alerts, and runbook-style workflows that reduce time-to-diagnose.</p>
+        <div class="tags">
+          <span class="tag">Tracing</span><span class="tag">Metrics</span><span class="tag">Logs</span><span class="tag">Debugging</span>
         </div>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- =========================
-       PROOF (animated counters)
-       ========================= -->
-  <section id="proof">
-    <div class="container">
-      <div class="card pad2 reveal">
-        <div class="row">
-          <div>
-            <div style="font-weight:800; font-size:18px;">Proof</div>
-            <div class="muted2" style="margin-top:6px; font-size:12px;">
-              Numbers that communicate “production mindset”.
-            </div>
+<section id="architecture">
+  <div class="wrap">
+    <div class="secHead">
+      <div>
+        <div class="kicker">Architecture</div>
+        <h2>Interactive: a reliability-minded service flow</h2>
+        <div class="archHint">Click components to see what reliability decisions are enforced.</div>
+      </div>
+      <div class="muted2" style="font-size:12px">Client → API → Service → DB/Cache → Queue → Worker</div>
+    </div>
+
+    <div class="archGrid">
+      <div class="glass archCanvas reveal">
+        <svg class="archSvg" viewBox="0 0 860 320" role="img" aria-label="Architecture diagram">
+          <defs>
+            <marker id="arrow" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto">
+              <path d="M0,0 L12,6 L0,12" fill="rgba(255,255,255,.35)"></path>
+            </marker>
+          </defs>
+
+          <!-- Edges -->
+          <path class="edge" data-edge="client-api" d="M150 90 C 190 90, 210 90, 250 90" />
+          <path class="edge" data-edge="api-service" d="M350 90 C 390 90, 410 90, 450 90" />
+          <path class="edge" data-edge="service-db" d="M550 90 C 590 90, 610 90, 650 90" />
+          <path class="edge" data-edge="service-cache" d="M520 120 C 520 170, 560 185, 650 190" />
+          <path class="edge" data-edge="service-queue" d="M520 120 C 520 235, 560 250, 650 250" />
+          <path class="edge" data-edge="queue-worker" d="M750 250 C 780 250, 800 250, 830 250" />
+
+          <!-- Nodes -->
+          <g class="node" data-node="client" transform="translate(30,55)">
+            <rect width="120" height="70"></rect>
+            <text x="60" y="42" text-anchor="middle">Client</text>
+          </g>
+
+          <g class="node" data-node="api" transform="translate(250,55)">
+            <rect width="120" height="70"></rect>
+            <text x="60" y="34" text-anchor="middle">API</text>
+            <text x="60" y="52" text-anchor="middle" style="font-weight:600; font-size:11px; fill:rgba(255,255,255,.70)">Auth + RBAC</text>
+          </g>
+
+          <g class="node" data-node="service" transform="translate(450,55)">
+            <rect width="140" height="70"></rect>
+            <text x="70" y="34" text-anchor="middle">Service</text>
+            <text x="70" y="52" text-anchor="middle" style="font-weight:600; font-size:11px; fill:rgba(255,255,255,.70)">Idempotent ops</text>
+          </g>
+
+          <g class="node" data-node="db" transform="translate(650,40)">
+            <rect width="160" height="70"></rect>
+            <text x="80" y="42" text-anchor="middle">Postgres</text>
+          </g>
+
+          <g class="node" data-node="cache" transform="translate(650,150)">
+            <rect width="160" height="60"></rect>
+            <text x="80" y="38" text-anchor="middle">Cache</text>
+          </g>
+
+          <g class="node" data-node="queue" transform="translate(650,230)">
+            <rect width="160" height="60"></rect>
+            <text x="80" y="38" text-anchor="middle">Queue</text>
+          </g>
+
+          <g class="node" data-node="worker" transform="translate(830,220)">
+            <rect width="120" height="80"></rect>
+            <text x="60" y="44" text-anchor="middle">Worker</text>
+          </g>
+        </svg>
+      </div>
+
+      <aside class="glass archSide reveal">
+        <div class="kicker">Selected component</div>
+        <div class="archPanel" id="archPanel">
+          <div class="archTitle" id="archTitle">Service</div>
+          <div class="archBody" id="archBody">
+            Stateless handlers with clear contracts, timeouts, retries, and safe rollouts—designed for predictable behavior under failure.
           </div>
-          <div class="chip">impact</div>
+          <ul class="archList" id="archList">
+            <li>Correlation IDs + structured logs</li>
+            <li>Metrics and traces per request path</li>
+            <li>Idempotency keys for write paths</li>
+          </ul>
         </div>
+        <p class="tiny" style="margin-top:12px">
+          This section is intentionally “systems-looking” so recruiters see reliability thinking, not just UI.
+        </p>
+      </aside>
+    </div>
+  </div>
+</section>
 
-        <div class="proofGrid" id="proofCounters">
-          <div class="stat">
-            <div class="statNum"><span class="count" data-target="30" data-suffix="%">0</span></div>
-            <div class="statLbl">Latency improvement via query + caching strategies</div>
-          </div>
-          <div class="stat">
-            <div class="statNum"><span class="count" data-target="45" data-suffix="%">0</span></div>
-            <div class="statLbl">Faster time-to-diagnose via tracing + dashboards</div>
-          </div>
-          <div class="stat">
-            <div class="statNum"><span class="count" data-target="50" data-suffix="%">0</span></div>
-            <div class="statLbl">Less deployment overhead via CI/CD automation</div>
-          </div>
+<section id="skills">
+  <div class="wrap">
+    <div class="secHead">
+      <div>
+        <div class="kicker">Skills</div>
+        <h2>SE2-aligned skill clusters</h2>
+      </div>
+      <div class="muted2" style="font-size:12px">Keep claims honest · show depth via projects/work</div>
+    </div>
+
+    <div class="grid3">
+      <div class="glass card reveal">
+        <h3>Systems & Reliability</h3>
+        <p>Linux, debugging, performance tuning, incident response, root-cause analysis, guardrails, rollbacks, runbooks.</p>
+        <div class="tags">
+          <span class="tag">Linux</span><span class="tag">Debug</span><span class="tag">Perf</span><span class="tag">RCA</span>
+        </div>
+      </div>
+      <div class="glass card reveal">
+        <h3>Backend & Cloud</h3>
+        <p>Node.js/Python services, REST APIs, microservices, queues, caching, PostgreSQL/MongoDB, Docker, CI/CD, AWS.</p>
+        <div class="tags">
+          <span class="tag">Node.js</span><span class="tag">Python</span><span class="tag">Docker</span><span class="tag">AWS</span>
+        </div>
+      </div>
+      <div class="glass card reveal">
+        <h3>Observability</h3>
+        <p>Structured logs, metrics, tracing, dashboards/alerts, regression detection, and operational visibility patterns.</p>
+        <div class="tags">
+          <span class="tag">Logs</span><span class="tag">Metrics</span><span class="tag">Tracing</span><span class="tag">Dashboards</span>
         </div>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- =========================
-       ARCHITECTURE (interactive)
-       ========================= -->
-  <section id="architecture">
-    <div class="container">
-      <div class="card pad2 reveal">
-        <div class="row">
-          <div>
-            <div style="font-weight:800; font-size:18px;">Architecture</div>
-            <div class="muted2" style="margin-top:6px; font-size:12px;">
-              Click boxes to see reliability decisions (idempotency, retries, tracing, DLQ).
-            </div>
-          </div>
-          <div class="chip">systems</div>
+<section id="work">
+  <div class="wrap">
+    <div class="secHead">
+      <div>
+        <div class="kicker">Work</div>
+        <h2>Experience</h2>
+      </div>
+      <div class="muted2" style="font-size:12px">Bullets are written like SE2 scope</div>
+    </div>
+
+    <div class="timeline">
+      <div class="glass job reveal">
+        <div class="jobTop">
+          <div class="jobTitle">Software Engineer — Ocean Shark LLC</div>
+          <div class="jobMeta">Sep 2025 – Present · New Jersey, USA</div>
         </div>
+        <ul>
+          <li>Built backend services with reliability guardrails: timeouts, retries, validation, and safe rollout patterns.</li>
+          <li>Telemetry-first instrumentation: structured logs + key metrics/traces that improved production debugging speed.</li>
+          <li>Automation mindset: CI/CD and repeatable processes to reduce regressions and operational toil.</li>
+        </ul>
+      </div>
 
-        <div class="archGrid">
-          <div class="archCanvas card pad" style="box-shadow:none;">
-            <svg viewBox="0 0 920 360" role="img" aria-label="Architecture diagram">
-              <defs>
-                <marker id="arrow" markerWidth="10" markerHeight="10" refX="10" refY="3" orient="auto" markerUnits="strokeWidth">
-                  <path d="M0,0 L10,3 L0,6 Z" fill="rgba(255,255,255,.28)"></path>
-                </marker>
-              </defs>
-
-              <!-- edges -->
-              <line class="edge" id="e1" x1="130" y1="95" x2="300" y2="95"></line>
-              <line class="edge" id="e2" x1="460" y1="95" x2="620" y2="95"></line>
-              <line class="edge" id="e3" x1="460" y1="125" x2="620" y2="240"></line>
-              <line class="edge" id="e4" x1="760" y1="240" x2="880" y2="240"></line>
-
-              <!-- nodes -->
-              <g class="node" data-node="client" transform="translate(30 58)">
-                <rect rx="14" ry="14" width="140" height="74"></rect>
-                <text class="label" x="16" y="30">Client</text>
-                <text class="sublabel" x="16" y="52">Web / Mobile</text>
-              </g>
-
-              <g class="node" data-node="api" transform="translate(240 58)">
-                <rect rx="14" ry="14" width="220" height="74"></rect>
-                <text class="label" x="16" y="30">API Gateway</text>
-                <text class="sublabel" x="16" y="52">Auth • Rate limit • Routing</text>
-              </g>
-
-              <g class="node" data-node="service" transform="translate(520 58)">
-                <rect rx="14" ry="14" width="220" height="74"></rect>
-                <text class="label" x="16" y="30">Service</text>
-                <text class="sublabel" x="16" y="52">Idempotent handlers • RBAC</text>
-              </g>
-
-              <g class="node" data-node="cache" transform="translate(520 200)">
-                <rect rx="14" ry="14" width="220" height="86"></rect>
-                <text class="label" x="16" y="32">Cache / DB</text>
-                <text class="sublabel" x="16" y="56">Postgres • Redis • indexes</text>
-              </g>
-
-              <g class="node" data-node="queue" transform="translate(760 200)">
-                <rect rx="14" ry="14" width="140" height="86"></rect>
-                <text class="label" x="16" y="32">Queue</text>
-                <text class="sublabel" x="16" y="56">Retries • DLQ</text>
-              </g>
-
-              <g class="node" data-node="worker" transform="translate(900 200)">
-                <rect rx="14" ry="14" width="0" height="0" fill="transparent" stroke="transparent"></rect>
-              </g>
-
-              <!-- Worker drawn as separate node for clarity (outside viewbox edge marker compat) -->
-              <g class="node" data-node="worker2" transform="translate(820 200)">
-                <rect rx="14" ry="14" width="80" height="86" style="display:none;"></rect>
-              </g>
-
-              <g class="node" data-node="worker" transform="translate(880 200)">
-                <rect rx="14" ry="14" width="10" height="86" style="opacity:0;"></rect>
-              </g>
-
-              <!-- Worker card -->
-              <g class="node" data-node="workerCard" transform="translate(880 200)" style="pointer-events:none;">
-                <rect rx="14" ry="14" width="0" height="0" fill="transparent" stroke="transparent"></rect>
-              </g>
-
-              <!-- Right-most "Worker" box -->
-              <g class="node" data-node="worker" transform="translate(880 200)">
-                <rect rx="14" ry="14" width="0" height="0" style="display:none;"></rect>
-              </g>
-
-              <!-- Use a normal node instead: -->
-              <g class="node" data-node="worker" transform="translate(880 200)">
-                <rect rx="14" ry="14" width="0" height="0" style="display:none;"></rect>
-              </g>
-
-              <g class="node" data-node="worker" transform="translate(880 200)" style="display:none;">
-                <rect rx="14" ry="14" width="0" height="0"></rect>
-              </g>
-
-              <!-- Actually place worker inside viewBox -->
-              <g class="node" data-node="worker" transform="translate(880 200)">
-                <rect rx="14" ry="14" width="0" height="0" style="display:none;"></rect>
-              </g>
-
-              <g class="node" data-node="worker" transform="translate(880 200)">
-                <rect rx="14" ry="14" width="0" height="0" style="display:none;"></rect>
-              </g>
-
-              <g class="node" data-node="worker" transform="translate(880 200)">
-                <rect rx="14" ry="14" width="0" height="0" style="display:none;"></rect>
-              </g>
-
-              <!-- Final worker box (within viewBox) -->
-              <g class="node" data-node="worker" transform="translate(880 200)">
-                <rect rx="14" ry="14" width="0" height="0" style="display:none;"></rect>
-              </g>
-
-              <g class="node" data-node="worker" transform="translate(880 200)">
-                <rect rx="14" ry="14" width="0" height="0" style="display:none;"></rect>
-              </g>
-
-              <!-- Better: put Worker at x=880-w=140 -->
-              <g class="node" data-node="worker" transform="translate(880 200)"></g>
-            </svg>
-
-            <!-- Replace the weird worker placement with a clean one via CSS overlay text -->
-            <div class="archHint" style="margin-top:10px;">
-              If the diagram looks tight on your screen, rotate phone landscape — mobile layout puts the explanation first.
-            </div>
-          </div>
-
-          <div class="archSide">
-            <div class="card pad archPanel" style="box-shadow:none;">
-              <h3 id="archTitle">Click a box</h3>
-              <p id="archDesc">Select Client, API Gateway, Service, Cache/DB, or Queue to see what reliability practices are enforced.</p>
-              <ul class="archList" id="archBullets"></ul>
-              <div class="archBadge"><span class="dot"></span><span class="muted2" id="archFoot">Production-minded defaults</span></div>
-            </div>
-
-            <div class="card pad" style="box-shadow:none; margin-top:12px;">
-              <div style="font-weight:750; font-size:13px;">Telemetry baseline</div>
-              <div class="muted" style="font-size:12px; line-height:1.6; margin-top:8px;">
-                Correlation IDs, structured logs, metrics for saturation/latency/errors, and traces for cross-service RCA.
-              </div>
-              <div class="tags" style="margin-top:10px;">
-                <span class="tag">Logs</span><span class="tag">Metrics</span><span class="tag">Traces</span><span class="tag">Dashboards</span><span class="tag">Alerts</span>
-              </div>
-            </div>
-          </div>
+      <div class="glass job reveal">
+        <div class="jobTop">
+          <div class="jobTitle">Software Engineer Intern — Ocean Shark LLC</div>
+          <div class="jobMeta">Jun 2024 – May 2025 · Hybrid</div>
         </div>
+        <ul>
+          <li>Worked on Node.js + AWS microservices, API development, and internal operational tooling.</li>
+          <li>Improved delivery pipelines using Docker + GitHub Actions; built dashboards for throughput and service health.</li>
+          <li>Implemented RBAC patterns and audit-friendly middleware for controlled access.</li>
+        </ul>
+      </div>
 
-        <!-- A clean worker block below, so diagram stays readable everywhere -->
-        <div class="card pad reveal" style="box-shadow:none; margin-top:12px;">
-          <div class="row">
-            <div style="font-weight:800;">Worker (async processing)</div>
-            <div class="chip">idempotent</div>
-          </div>
-          <div class="muted" style="margin-top:8px; font-size:12px; line-height:1.6;">
-            Background jobs pull from the Queue, apply retry/backoff, and write results back to Cache/DB. Failures go to DLQ with
-            replay tooling and a runbook for triage.
-          </div>
+      <div class="glass job reveal">
+        <div class="jobTop">
+          <div class="jobTitle">Machine Learning Intern — Bosch India</div>
+          <div class="jobMeta">Jun 2022 – Aug 2022 · Pune, India</div>
         </div>
+        <ul>
+          <li>Time-series analysis + anomaly detection with an evaluation mindset; reduced false positives through threshold tuning.</li>
+          <li>Automated reporting and dashboards to reduce manual diagnostic work.</li>
+        </ul>
+      </div>
+
+      <div class="glass job reveal">
+        <div class="jobTop">
+          <div class="jobTitle">Full-Stack Developer — Adaptable Services</div>
+          <div class="jobMeta">Nov 2022 – Jul 2023 · India</div>
+        </div>
+        <ul>
+          <li>Delivered stable APIs and admin tooling with maintainable code and predictable behavior under edge cases.</li>
+        </ul>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- =========================
-       SKILLS
-       ========================= -->
-  <section id="skills">
-    <div class="container">
-      <div class="card pad2 reveal">
-        <div class="row">
-          <div>
-            <div style="font-weight:800; font-size:18px;">Skills</div>
-            <div class="muted2" style="margin-top:6px; font-size:12px;">Only the skills you’d want for SE2 backend/systems.</div>
-          </div>
-          <div class="chip">SE2</div>
+<section id="projects">
+  <div class="wrap">
+    <div class="secHead">
+      <div>
+        <div class="kicker">Projects</div>
+        <h2>Framed like production work</h2>
+      </div>
+      <div class="muted2" style="font-size:12px">Reliability + interfaces + measurable outcomes</div>
+    </div>
+
+    <div class="projGrid">
+      <a class="glass proj reveal" href="https://github.com/Preet2862001/real-time-dashboard" target="_blank" rel="noopener">
+        <h3>Real-Time Dashboard (React + WebSocket)</h3>
+        <p>Event-streaming UI that mirrors ops thinking: throughput, error states, live updates, and visibility.</p>
+        <div class="meta">
+          <span class="tag">WebSocket</span><span class="tag">React</span><span class="tag">Ops UI</span>
         </div>
+      </a>
 
-        <div class="buildGrid">
-          <div class="card pad buildCard" style="box-shadow:none;">
-            <h3>Backend & Services</h3>
-            <p>API design, microservices, auth/RBAC, validation, pagination, idempotency, error handling.</p>
-            <div class="tags">
-              <span class="tag">Node.js</span><span class="tag">Python</span><span class="tag">REST</span><span class="tag">RBAC</span>
-            </div>
-          </div>
-
-          <div class="card pad buildCard" style="box-shadow:none;">
-            <h3>Data & Performance</h3>
-            <p>Postgres modeling, indexing, caching strategy, queues, async workflows, latency & throughput tuning.</p>
-            <div class="tags">
-              <span class="tag">Postgres</span><span class="tag">Redis</span><span class="tag">Queues</span><span class="tag">Perf</span>
-            </div>
-          </div>
-
-          <div class="card pad buildCard" style="box-shadow:none;">
-            <h3>Reliability & Observability</h3>
-            <p>Logs/metrics/traces, dashboards, alerts, RCA, runbooks, regression detection, on-call readiness.</p>
-            <div class="tags">
-              <span class="tag">Tracing</span><span class="tag">Metrics</span><span class="tag">Debugging</span><span class="tag">Runbooks</span>
-            </div>
-          </div>
-
-          <div class="card pad buildCard" style="box-shadow:none;">
-            <h3>Delivery</h3>
-            <p>CI/CD automation, reproducible builds, safe rollouts, rollback-minded deployments.</p>
-            <div class="tags">
-              <span class="tag">Docker</span><span class="tag">GitHub Actions</span><span class="tag">CI/CD</span><span class="tag">Linux</span>
-            </div>
-          </div>
-
-          <div class="card pad buildCard" style="box-shadow:none;">
-            <h3>Cloud</h3>
-            <p>Pragmatic cloud usage: compute/storage primitives, environment config, production hygiene.</p>
-            <div class="tags">
-              <span class="tag">AWS</span><span class="tag">EC2</span><span class="tag">S3</span><span class="tag">Lambda</span>
-            </div>
-          </div>
-
-          <div class="card pad buildCard" style="box-shadow:none;">
-            <h3>AI/ML (quality + evals)</h3>
-            <p>LLM/RAG patterns, embeddings retrieval, golden sets, evaluation harnesses, quality iteration.</p>
-            <div class="tags">
-              <span class="tag">RAG</span><span class="tag">Embeddings</span><span class="tag">Evals</span><span class="tag">Agents</span>
-            </div>
-          </div>
+      <a class="glass proj reveal" href="https://github.com/Preet2862001/ecommerce-product-api" target="_blank" rel="noopener">
+        <h3>E-Commerce Product API</h3>
+        <p>Service patterns: auth, CRUD, validation, API contracts designed for maintainability and testability.</p>
+        <div class="meta">
+          <span class="tag">Node.js</span><span class="tag">MongoDB</span><span class="tag">Auth</span>
         </div>
+      </a>
+
+      <a class="glass proj reveal" href="https://github.com/Preet2862001/papercuppro-inventory-system" target="_blank" rel="noopener">
+        <h3>PaperCupPro — Inventory & Ops</h3>
+        <p>Role-based access, reporting workflows, and scalability-friendly data modeling for operations.</p>
+        <div class="meta">
+          <span class="tag">RBAC</span><span class="tag">SQL</span><span class="tag">Admin tooling</span>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section id="deep">
+  <div class="wrap">
+    <div class="secHead">
+      <div>
+        <div class="kicker">Deep Dive</div>
+        <h2>How I think (reliability checklist)</h2>
+      </div>
+      <div class="muted2" style="font-size:12px">Good for interviews</div>
+    </div>
+
+    <div class="grid3">
+      <div class="glass card reveal">
+        <h3>Before shipping</h3>
+        <p>Define contracts, failure modes, timeouts/retries, and validate the “rollback story” before rollout.</p>
+        <div class="tags"><span class="tag">Contracts</span><span class="tag">Timeouts</span><span class="tag">Rollback</span></div>
+      </div>
+      <div class="glass card reveal">
+        <h3>During incidents</h3>
+        <p>Follow dashboards, trace spans, correlation IDs; isolate blast radius; document RCA and add guardrails.</p>
+        <div class="tags"><span class="tag">Tracing</span><span class="tag">RCA</span><span class="tag">Guardrails</span></div>
+      </div>
+      <div class="glass card reveal">
+        <h3>After incidents</h3>
+        <p>Turn the fix into automation: tests, alerts, runbooks, and tooling that prevents repeat failures.</p>
+        <div class="tags"><span class="tag">Automation</span><span class="tag">Runbooks</span><span class="tag">Tests</span></div>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- =========================
-       WORK / EXPERIENCE
-       ========================= -->
-  <section id="work">
-    <div class="container">
-      <div class="card pad2 reveal">
-        <div class="row">
-          <div>
-            <div style="font-weight:800; font-size:18px;">Work</div>
-            <div class="muted2" style="margin-top:6px; font-size:12px;">Framed like SE2: ownership, reliability, measurable outcomes.</div>
-          </div>
-          <div class="chip">experience</div>
-        </div>
+<section id="contact">
+  <div class="wrap">
+    <div class="secHead">
+      <div>
+        <div class="kicker">Contact</div>
+        <h2>Let’s connect</h2>
+      </div>
+      <div class="muted2" style="font-size:12px">Backend / platform / reliability</div>
+    </div>
 
-        <div class="timeline">
-          <div class="card pad role" style="box-shadow:none;">
-            <h3>Software Engineer — Ocean Shark LLC</h3>
-            <div class="meta">Sep 2025 – Present • New Jersey, USA</div>
-            <ul>
-              <li>Build backend services with clear contracts, predictable failure modes, and “operate-ability” as a first-class requirement.</li>
-              <li>Telemetry-first patterns: structured logs, metrics/traces, correlation IDs, and dashboards to accelerate RCA.</li>
-              <li>Delivery discipline: CI/CD automation, safer rollouts, regression prevention.</li>
-            </ul>
-          </div>
-
-          <div class="card pad role" style="box-shadow:none;">
-            <h3>Software Engineer Intern — Ocean Shark LLC</h3>
-            <div class="meta">Jun 2024 – May 2025 • Hybrid</div>
-            <ul>
-              <li>Worked on Node.js + AWS services; improved latency via query and caching strategy.</li>
-              <li>Built CI/CD improvements with Docker + GitHub Actions and monitoring dashboards for throughput/health.</li>
-              <li>Implemented RBAC patterns and audit-friendly middleware for controlled access.</li>
-            </ul>
-          </div>
-
-          <div class="card pad role" style="box-shadow:none;">
-            <h3>Machine Learning Intern — Bosch India</h3>
-            <div class="meta">Jun 2022 – Aug 2022 • Pune, India</div>
-            <ul>
-              <li>Time-series analysis/anomaly detection; automated reporting to improve diagnostic productivity.</li>
-              <li>Evaluation-driven iteration with a focus on reducing false positives and improving signal quality.</li>
-            </ul>
-          </div>
-
-          <div class="card pad role" style="box-shadow:none;">
-            <h3>Full-Stack Developer — Adaptable Services</h3>
-            <div class="meta">Nov 2022 – Jul 2023 • India</div>
-            <ul>
-              <li>Full-stack delivery with emphasis on stable APIs, maintainable code, and admin-facing operational tooling.</li>
-            </ul>
-          </div>
-        </div>
-
-        <div class="divider"></div>
-
-        <div class="muted2" style="font-size:12px;">
-          Education: New York University — M.S. Computer Science (Sep 2023 – May 2025)
-        </div>
+    <div class="glass card reveal">
+      <p class="tiny" style="margin:0 0 10px">
+        If you’re hiring for backend/systems roles, I’d love to chat. Best way to reach me:
+      </p>
+      <div style="display:flex; flex-wrap:wrap; gap:10px">
+        <a class="btn primary" href="mailto:preetpatel2861@gmail.com">Email</a>
+        <a class="btn" href="https://www.linkedin.com/in/preet-patel2861" target="_blank" rel="noopener">LinkedIn</a>
+        <a class="btn" href="https://github.com/Preet2862001" target="_blank" rel="noopener">GitHub</a>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- =========================
-       PROJECTS
-       ========================= -->
-  <section id="projects">
-    <div class="container">
-      <div class="card pad2 reveal">
-        <div class="row">
-          <div>
-            <div style="font-weight:800; font-size:18px;">Projects</div>
-            <div class="muted2" style="margin-top:6px; font-size:12px;">Written like production: interfaces, constraints, outcomes.</div>
-          </div>
-          <div class="chip">github</div>
-        </div>
+<footer>
+  <div class="wrap">
+    <div>© 2026 Preet Patel · Built with clean HTML/CSS/JS (no fragile CDN dependencies).</div>
+  </div>
+</footer>
 
-        <div class="projGrid">
-          <div class="card pad proj" style="box-shadow:none;">
-            <a href="https://github.com/Preet2862001/real-time-dashboard" target="_blank" rel="noopener">
-              <h3>Real-Time Dashboard (React + WebSocket)</h3>
-              <p>Streaming UI for throughput/errors/live updates; operational visibility patterns + guardrails.</p>
-              <div class="footer"><span>WebSocket</span><span>Telemetry-minded UI</span><span>React</span></div>
-            </a>
-          </div>
-
-          <div class="card pad proj" style="box-shadow:none;">
-            <a href="https://github.com/Preet2862001/ecommerce-product-api" target="_blank" rel="noopener">
-              <h3>E-Commerce Product API</h3>
-              <p>Backend patterns: auth, CRUD, validation, and maintainable API contracts.</p>
-              <div class="footer"><span>Node.js</span><span>MongoDB</span><span>Auth</span></div>
-            </a>
-          </div>
-
-          <div class="card pad proj" style="box-shadow:none;">
-            <a href="https://github.com/Preet2862001/papercuppro-inventory-system" target="_blank" rel="noopener">
-              <h3>PaperCupPro — Inventory & Ops</h3>
-              <p>Ops platform with RBAC, reporting workflows, and scalability-friendly data modeling.</p>
-              <div class="footer"><span>RBAC</span><span>SQL</span><span>Admin tooling</span></div>
-            </a>
-          </div>
-
-          <div class="card pad proj" style="box-shadow:none;">
-            <a href="https://github.com/Preet2862001/food-calorie-estimation-dnn" target="_blank" rel="noopener">
-              <h3>Food Calorie Estimator (ML Service)</h3>
-              <p>ML pipeline presented as a service: evaluation-driven iteration and clear API boundaries.</p>
-              <div class="footer"><span>Python</span><span>Model eval</span><span>Service interface</span></div>
-            </a>
-          </div>
-
-          <div class="card pad proj" style="box-shadow:none;">
-            <a href="https://github.com/Preet2862001/ai-vehicle-monitoring-system" target="_blank" rel="noopener">
-              <h3>Driver Alertness (Real-time Pipeline)</h3>
-              <p>Real-time stream processing with latency-aware logic and robustness to noisy inputs.</p>
-              <div class="footer"><span>OpenCV</span><span>Real-time</span><span>Constraints</span></div>
-            </a>
-          </div>
-
-          <div class="card pad proj" style="box-shadow:none;">
-            <h3>Learning Track (optional)</h3>
-            <p class="muted">Firmware-adjacent basics: interface concepts, failure modes, test harness design, debugging workflow.</p>
-            <div class="footer"><span>USB</span><span>SPI</span><span>I2C</span></div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- =========================
-       CONTACT
-       ========================= -->
-  <section id="contact">
-    <div class="container">
-      <div class="card pad2 reveal">
-        <div class="row">
-          <div>
-            <div style="font-weight:800; font-size:18px;">Contact</div>
-            <div class="muted2" style="margin-top:6px; font-size:12px;">Fastest way: email or LinkedIn.</div>
-          </div>
-          <div class="chip">reach me</div>
-        </div>
-
-        <div class="divider"></div>
-
-        <div class="buildGrid" style="grid-template-columns: 1fr 1fr; margin-top:0;">
-          <div class="card pad" style="box-shadow:none;">
-            <div class="muted2" style="font-size:12px;">Email</div>
-            <div style="margin-top:8px; font-weight:800;">
-              <a class="underline" href="mailto:preetpatel2861@gmail.com">preetpatel2861@gmail.com</a>
-            </div>
-            <div class="ctaRow" style="margin-top:10px;">
-              <button class="btn" id="copyEmail" type="button">Copy Email</button>
-            </div>
-          </div>
-
-          <div class="card pad" style="box-shadow:none;">
-            <div class="muted2" style="font-size:12px;">Links</div>
-            <div style="margin-top:8px; display:flex; flex-direction:column; gap:8px;">
-              <a class="underline" href="https://www.linkedin.com/in/preet-patel2861" target="_blank" rel="noopener">LinkedIn</a>
-              <a class="underline" href="https://github.com/Preet2862001" target="_blank" rel="noopener">GitHub</a>
-              <a class="underline" href="Preet_Patel_Resume.pdf" target="_blank" rel="noopener">Resume PDF</a>
-            </div>
-          </div>
-        </div>
-
-        <div class="muted2" style="margin-top:14px; font-size:12px;">
-          Phone: <a class="underline" href="tel:+19296427701">+1 (929) 642-7701</a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <footer>
-    © <span id="year"></span> Preet Patel • Built as a single-file static site (no external UI libraries)
-  </footer>
-
-  <script>
-    /* =========================
-       Header behavior + menu
-       ========================= */
-    const header = document.getElementById('siteHeader');
-    const menuBtn = document.getElementById('menuBtn');
-    const mobileMenu = document.getElementById('mobileMenu');
-
-    function setScrolled(){
-      if (window.scrollY > 16) header.classList.add('scrolled');
-      else header.classList.remove('scrolled');
-    }
-    window.addEventListener('scroll', setScrolled);
-    setScrolled();
-
-    menuBtn?.addEventListener('click', () => {
-      const isOpen = mobileMenu.classList.toggle('open');
-      mobileMenu.setAttribute('aria-hidden', String(!isOpen));
-      menuBtn.textContent = isOpen ? 'Close' : 'Menu';
+<script>
+  // ----- Mobile menu -----
+  const menuBtn = document.getElementById('menuBtn');
+  const mobilePanel = document.getElementById('mobilePanel');
+  if(menuBtn && mobilePanel){
+    menuBtn.addEventListener('click', () => mobilePanel.classList.toggle('open'));
+    mobilePanel.addEventListener('click', (e) => {
+      if(e.target.tagName === 'A') mobilePanel.classList.remove('open');
     });
+  }
 
-    // Close menu after click
-    mobileMenu?.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
-      mobileMenu.classList.remove('open');
-      mobileMenu.setAttribute('aria-hidden', 'true');
-      menuBtn.textContent = 'Menu';
-    }));
+  // ----- Copy buttons -----
+  function copyText(text, btn, done="Copied ✓"){
+    navigator.clipboard.writeText(text).then(()=>{
+      const prev = btn.textContent;
+      btn.textContent = done;
+      setTimeout(()=>btn.textContent = prev, 1200);
+    }).catch(()=>{});
+  }
+  const copyLinkedIn = document.getElementById('copyLinkedIn');
+  const copyGitHub = document.getElementById('copyGitHub');
+  if(copyLinkedIn) copyLinkedIn.addEventListener('click',()=>copyText("https://www.linkedin.com/in/preet-patel2861", copyLinkedIn));
+  if(copyGitHub) copyGitHub.addEventListener('click',()=>copyText("https://github.com/Preet2862001", copyGitHub));
 
-    document.getElementById('year').textContent = new Date().getFullYear();
+  const copyLinkedInMobile = document.getElementById('copyLinkedInMobile');
+  const copyGitHubMobile = document.getElementById('copyGitHubMobile');
+  if(copyLinkedInMobile) copyLinkedInMobile.addEventListener('click',()=>copyText("https://www.linkedin.com/in/preet-patel2861", copyLinkedInMobile));
+  if(copyGitHubMobile) copyGitHubMobile.addEventListener('click',()=>copyText("https://github.com/Preet2862001", copyGitHubMobile));
 
-    /* =========================
-       Copy helpers
-       ========================= */
-    async function copyText(text, btn, label="Copied ✓"){
-      try{
-        await navigator.clipboard.writeText(text);
-        const prev = btn.textContent;
-        btn.textContent = label;
-        setTimeout(() => btn.textContent = prev, 900);
-      }catch(e){
-        // fallback for older browsers
-        const ta = document.createElement('textarea');
-        ta.value = text; document.body.appendChild(ta);
-        ta.select(); document.execCommand('copy');
-        document.body.removeChild(ta);
-        const prev = btn.textContent;
-        btn.textContent = label;
-        setTimeout(() => btn.textContent = prev, 900);
+  // ----- Active nav highlight -----
+  const navLinks = [...document.querySelectorAll('[data-nav]')];
+  const ids = navLinks.map(a => a.getAttribute('data-nav'));
+  const sections = ids.map(id => document.getElementById(id)).filter(Boolean);
+
+  const navObs = new IntersectionObserver((entries)=>{
+    entries.forEach(entry=>{
+      if(entry.isIntersecting){
+        navLinks.forEach(a=>a.classList.toggle('active', a.getAttribute('data-nav')===entry.target.id));
       }
-    }
+    });
+  }, {threshold:.45});
+  sections.forEach(s=>navObs.observe(s));
 
-    const LI = "https://www.linkedin.com/in/preet-patel2861";
-    const GH = "https://github.com/Preet2862001";
-    const EM = "preetpatel2861@gmail.com";
-
-    const copyLinkedIn = document.getElementById('copyLinkedIn');
-    const copyGitHub = document.getElementById('copyGitHub');
-    const copyLinkedInMobile = document.getElementById('copyLinkedInMobile');
-    const copyGitHubMobile = document.getElementById('copyGitHubMobile');
-    const copyEmail = document.getElementById('copyEmail');
-
-    copyLinkedIn?.addEventListener('click', () => copyText(LI, copyLinkedIn));
-    copyGitHub?.addEventListener('click', () => copyText(GH, copyGitHub));
-    copyLinkedInMobile?.addEventListener('click', () => copyText(LI, copyLinkedInMobile));
-    copyGitHubMobile?.addEventListener('click', () => copyText(GH, copyGitHubMobile));
-    copyEmail?.addEventListener('click', () => copyText(EM, copyEmail));
-
-    /* =========================
-       Reveal on scroll (IntersectionObserver)
-       ========================= */
-    const prefersReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const revealEls = Array.from(document.querySelectorAll('.reveal'));
-    if (!prefersReduced && 'IntersectionObserver' in window){
-      const ro = new IntersectionObserver((entries) => {
-        entries.forEach(e => {
-          if (e.isIntersecting){
-            e.target.classList.add('in');
-            ro.unobserve(e.target);
-          }
-        });
-      }, { threshold: 0.18 });
-
-      revealEls.forEach(el => ro.observe(el));
-
-      // Safari safety fallback: never leave content invisible
-      setTimeout(() => {
-        revealEls.forEach(el => el.classList.add('in'));
-      }, 1600);
-    } else {
-      revealEls.forEach(el => el.classList.add('in'));
-    }
-
-    /* =========================
-       Animated counters (Proof)
-       ========================= */
-    function animateCount(el){
-      const target = Number(el.getAttribute('data-target') || '0');
-      const suffix = el.getAttribute('data-suffix') || '';
-      const duration = 850;
-      const start = performance.now();
-      function step(now){
-        const t = Math.min(1, (now - start)/duration);
-        const eased = 1 - Math.pow(1 - t, 3);
-        const val = Math.round(target * eased);
-        el.textContent = String(val) + suffix;
-        if (t < 1) requestAnimationFrame(step);
-      }
-      requestAnimationFrame(step);
-    }
-
-    const counterRoot = document.getElementById('proofCounters');
-    let countersRan = false;
-
-    if (!prefersReduced && counterRoot && 'IntersectionObserver' in window){
-      const co = new IntersectionObserver((entries) => {
-        entries.forEach(e => {
-          if (e.isIntersecting && !countersRan){
-            countersRan = true;
-            counterRoot.querySelectorAll('.count').forEach(animateCount);
-            co.disconnect();
-          }
-        });
-      }, { threshold: 0.35 });
-      co.observe(counterRoot);
-    } else if (counterRoot) {
-      counterRoot.querySelectorAll('.count').forEach(el => {
-        el.textContent = el.getAttribute('data-target') + (el.getAttribute('data-suffix') || '');
+  // ----- Reveal animations (safe fallback) -----
+  const revealEls = [...document.querySelectorAll('.reveal')];
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches){
+    revealEls.forEach(el=>el.classList.add('in'));
+  } else {
+    const rObs = new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{
+        if(e.isIntersecting){ e.target.classList.add('in'); rObs.unobserve(e.target); }
       });
+    }, {threshold:.16});
+    revealEls.forEach(el=>rObs.observe(el));
+
+    // Safari/slow load fallback: never leave content invisible
+    setTimeout(()=>revealEls.forEach(el=>el.classList.add('in')), 1600);
+  }
+
+  // ----- Proof counters -----
+  function animateCount(el, to, ms=850){
+    const start = 0;
+    const t0 = performance.now();
+    function tick(t){
+      const p = Math.min(1, (t - t0)/ms);
+      const val = Math.round(start + (to-start) * (1 - Math.pow(1-p,3)));
+      el.textContent = val;
+      if(p<1) requestAnimationFrame(tick);
     }
-
-    /* =========================
-       Active nav highlighting
-       ========================= */
-    const navLinks = Array.from(document.querySelectorAll('[data-link]'));
-    const sections = ['about','proof','architecture','skills','work','projects','contact']
-      .map(id => document.getElementById(id))
-      .filter(Boolean);
-
-    if ('IntersectionObserver' in window){
-      const so = new IntersectionObserver((entries) => {
-        entries.forEach(e => {
-          if (e.isIntersecting){
-            navLinks.forEach(a => a.classList.toggle('active', a.getAttribute('data-link') === e.target.id));
-          }
-        });
-      }, { threshold: 0.45 });
-      sections.forEach(s => so.observe(s));
-    }
-
-    /* =========================
-       Architecture interactions
-       ========================= */
-    // Because we simplified the diagram viewBox earlier, we’ll drive the panel from "virtual nodes":
-    const archTitle = document.getElementById('archTitle');
-    const archDesc = document.getElementById('archDesc');
-    const archBullets = document.getElementById('archBullets');
-    const archFoot = document.getElementById('archFoot');
-
-    const archData = {
-      client: {
-        title: "Client",
-        desc: "Request shaping + safe defaults before traffic hits your backend.",
-        bullets: [
-          "Timeouts + retries bounded (avoid retry storms)",
-          "Client-side idempotency key support for safe replays",
-          "Request correlation ID injected when possible"
-        ],
-        foot: "Goal: predictable behavior under poor networks."
-      },
-      api: {
-        title: "API Gateway",
-        desc: "Edge guardrails that prevent incidents from ever reaching services.",
-        bullets: [
-          "Auth verification + rate limiting",
-          "Request size limits + schema validation",
-          "Routing + canary-friendly rollout paths"
-        ],
-        foot: "Goal: protect downstream services by default."
-      },
-      service: {
-        title: "Service",
-        desc: "Where reliability is enforced through explicit contracts and safe failure modes.",
-        bullets: [
-          "Idempotent handlers + de-duplication",
-          "RBAC/authorization middleware",
-          "Structured logs + span/trace propagation"
-        ],
-        foot: "Goal: clean boundaries and debuggable behavior."
-      },
-      cache: {
-        title: "Cache / DB",
-        desc: "Data modeling + performance guardrails that keep latency stable.",
-        bullets: [
-          "Indexes + query plans reviewed",
-          "Caching strategy (TTL, invalidation, hot keys)",
-          "Connection pooling + backpressure"
-        ],
-        foot: "Goal: keep p95 latency predictable as load grows."
-      },
-      queue: {
-        title: "Queue",
-        desc: "Async reliability: retries, DLQs, and replay workflows.",
-        bullets: [
-          "Retry with backoff + max attempts",
-          "DLQ with alerting + replay tooling",
-          "Idempotent workers to tolerate at-least-once delivery"
-        ],
-        foot: "Goal: isolate failures and protect synchronous paths."
-      }
-    };
-
-    function setArch(nodeKey){
-      const d = archData[nodeKey];
-      if (!d) return;
-      archTitle.textContent = d.title;
-      archDesc.textContent = d.desc;
-      archBullets.innerHTML = "";
-      d.bullets.forEach(b => {
-        const li = document.createElement('li');
-        li.textContent = b;
-        archBullets.appendChild(li);
+    requestAnimationFrame(tick);
+  }
+  const counts = [...document.querySelectorAll('.count')];
+  const proofEl = document.getElementById('proof');
+  if(proofEl){
+    let ran = false;
+    const cObs = new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{
+        if(e.isIntersecting && !ran){
+          ran = true;
+          counts.forEach(c=>animateCount(c, Number(c.dataset.to||0)));
+          cObs.disconnect();
+        }
       });
-      archFoot.textContent = d.foot;
+    }, {threshold:.35});
+    cObs.observe(proofEl);
+  }
+
+  // ----- Architecture interactions -----
+  const nodeData = {
+    client:{
+      title:"Client",
+      body:"User/app making requests. Reliability starts at the edge with safe retries and clear error handling.",
+      bullets:["Exponential backoff + jitter","Client timeouts","Safe retry rules (idempotent only)"],
+      edges:["client-api"]
+    },
+    api:{
+      title:"API (Auth + RBAC)",
+      body:"Front door enforcing identity, authorization, validation, and request shaping before work hits services.",
+      bullets:["RBAC middleware","Input validation + pagination","Rate limiting / abuse controls"],
+      edges:["client-api","api-service"]
+    },
+    service:{
+      title:"Service (Idempotent ops)",
+      body:"Stateless handlers with clear contracts, timeouts, retries, and predictable failure modes. Telemetry everywhere.",
+      bullets:["Correlation IDs + structured logs","Metrics + tracing per request path","Idempotency keys for write paths"],
+      edges:["api-service","service-db","service-cache","service-queue"]
+    },
+    db:{
+      title:"Postgres",
+      body:"Source of truth. Reliability comes from schema constraints, indexing strategy, and careful query patterns.",
+      bullets:["Indexes for hot paths","Transactions for correctness","Migrations + backward compatibility"],
+      edges:["service-db"]
+    },
+    cache:{
+      title:"Cache",
+      body:"Used to protect the database and reduce latency. Must handle staleness and stampedes safely.",
+      bullets:["TTL + invalidation policy","Cache-aside patterns","Stampede protection"],
+      edges:["service-cache"]
+    },
+    queue:{
+      title:"Queue",
+      body:"Decouples work for reliability. Enables retries, backpressure, and DLQs for poison messages.",
+      bullets:["At-least-once delivery assumptions","Retries + DLQ","Backpressure + batching"],
+      edges:["service-queue","queue-worker"]
+    },
+    worker:{
+      title:"Worker",
+      body:"Async processors that must be idempotent and observable. Handles retries and partial failures safely.",
+      bullets:["Idempotent handlers","Dead-letter processing","Structured logs + traces"],
+      edges:["queue-worker"]
     }
+  };
 
-    // Minimal UI hooks: clicking chips on the Architecture card (optional)
-    // Also allow keyboard shortcuts: 1..5
-    window.addEventListener('keydown', (e) => {
-      if (e.target && (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA')) return;
-      if (e.key === '1') setArch('client');
-      if (e.key === '2') setArch('api');
-      if (e.key === '3') setArch('service');
-      if (e.key === '4') setArch('cache');
-      if (e.key === '5') setArch('queue');
+  const nodes = [...document.querySelectorAll('.node')];
+  const edges = [...document.querySelectorAll('.edge')];
+  const archTitle = document.getElementById('archTitle');
+  const archBody  = document.getElementById('archBody');
+  const archList  = document.getElementById('archList');
+
+  function setActive(nodeKey){
+    nodes.forEach(n=>n.classList.toggle('active', n.dataset.node===nodeKey));
+    edges.forEach(e=>e.classList.remove('active'));
+
+    const data = nodeData[nodeKey] || nodeData.service;
+    (data.edges||[]).forEach(k=>{
+      const el = document.querySelector(`.edge[data-edge="${k}"]`);
+      if(el) el.classList.add('active');
     });
 
-    // Make the Architecture panel clickable via small quick buttons (created dynamically)
-    const archPanel = archTitle.closest('.archPanel');
-    const quick = document.createElement('div');
-    quick.className = "tags";
-    quick.style.marginTop = "12px";
-    quick.innerHTML = `
-      <button class="btn" type="button" style="padding:8px 10px" data-arch="client">Client</button>
-      <button class="btn" type="button" style="padding:8px 10px" data-arch="api">API</button>
-      <button class="btn" type="button" style="padding:8px 10px" data-arch="service">Service</button>
-      <button class="btn" type="button" style="padding:8px 10px" data-arch="cache">DB/Cache</button>
-      <button class="btn" type="button" style="padding:8px 10px" data-arch="queue">Queue</button>
-    `;
-    archPanel.appendChild(quick);
-    quick.querySelectorAll('[data-arch]').forEach(btn => {
-      btn.addEventListener('click', () => setArch(btn.getAttribute('data-arch')));
-    });
+    if(archTitle) archTitle.textContent = data.title;
+    if(archBody)  archBody.textContent  = data.body;
+    if(archList){
+      archList.innerHTML = (data.bullets||[]).map(x=>`<li>${x}</li>`).join("");
+    }
+  }
+  nodes.forEach(n=>n.addEventListener('click', ()=>setActive(n.dataset.node)));
+  setActive('service');
+</script>
 
-    // default selection
-    setArch('service');
-  </script>
 </body>
 </html>
