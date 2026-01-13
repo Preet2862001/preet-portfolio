@@ -29,10 +29,10 @@
       --r2:26px;
       --max:1120px;
 
-      --a:#22d3ee; /* cyan */
-      --b:#a855f7; /* purple */
-      --c:#fb923c; /* orange */
-      --ok:#34d399; /* green */
+      --a:#22d3ee;
+      --b:#a855f7;
+      --c:#fb923c;
+      --ok:#34d399;
 
       --mono:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace;
       --sans:ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,Helvetica,Arial;
@@ -73,15 +73,18 @@
       background:linear-gradient(180deg, rgba(5,6,10,.80) 0%, rgba(5,6,10,.55) 100%);
       border-bottom:1px solid rgba(255,255,255,.08);
     }
+
     .nav{
       display:flex; align-items:center; justify-content:space-between;
       padding:14px 0;
       gap:14px;
     }
+
     .brand{
       display:flex; align-items:center; gap:12px;
       min-width:240px;
     }
+
     .badge{
       width:38px; height:38px; border-radius:14px;
       display:grid; place-items:center;
@@ -89,7 +92,9 @@
       border:1px solid rgba(255,255,255,.14);
       box-shadow:var(--shadow2);
       font-weight:800; letter-spacing:.08em; font-size:12px;
+      flex:0 0 auto;
     }
+
     .brand .name{line-height:1.1}
     .brand .name strong{font-size:14px; letter-spacing:.06em}
     .brand .name span{display:block; font-size:12px; color:var(--muted); margin-top:2px}
@@ -120,10 +125,17 @@
     }
 
     .actions{
-      display:flex; align-items:center; gap:10px;
+      display:flex;
+      align-items:center;
+      gap:10px;
       justify-content:flex-end;
       min-width:240px;
+
+      /* ✅ Critical fix: let actions wrap instead of overlapping */
+      flex-wrap:wrap;
+      max-width: 420px;
     }
+
     .btn{
       display:inline-flex; align-items:center; justify-content:center; gap:10px;
       padding:10px 14px;
@@ -136,6 +148,7 @@
       cursor:pointer;
       user-select:none;
       white-space:nowrap;
+      flex:0 0 auto;
     }
     .btn:hover{transform:translateY(-1px); border-color:rgba(255,255,255,.18); background:rgba(255,255,255,.08)}
     .btn:active{transform:translateY(0)}
@@ -144,14 +157,21 @@
       border-color:rgba(255,255,255,.18);
       box-shadow:0 18px 60px rgba(34,211,238,.08), 0 18px 60px rgba(168,85,247,.08);
     }
+
     .icon{width:16px; height:16px; display:inline-block; fill:currentColor; opacity:.92}
     .hamburger{display:none}
 
+    /* ✅ Mobile: reduce header actions to avoid crowding */
     @media (max-width: 900px){
       nav.links{display:none}
       .hamburger{display:inline-flex}
+
+      /* hide copy buttons in header on mobile */
+      #copyLinkedIn, #copyGitHub{display:none}
+
       .brand{min-width:auto}
-      .actions{min-width:auto}
+      .actions{min-width:auto; max-width:none}
+      .container{width:min(var(--max), calc(100% - 28px))}
     }
 
     .mobileSheet{
@@ -167,7 +187,7 @@
       gap:10px;
       margin-top:12px;
     }
-    .mobileSheet a{
+    .mobileSheet a, .mobileSheet button{
       padding:12px 12px;
       border-radius:14px;
       border:1px solid rgba(255,255,255,.10);
@@ -175,8 +195,14 @@
       color:var(--muted);
       font-size:13px;
       transition:.2s ease;
+      text-align:left;
+      width:100%;
     }
-    .mobileSheet a:hover{color:var(--text); background:rgba(255,255,255,.06); border-color:rgba(255,255,255,.16)}
+    .mobileSheet a:hover, .mobileSheet button:hover{
+      color:var(--text);
+      background:rgba(255,255,255,.06);
+      border-color:rgba(255,255,255,.16)
+    }
 
     /* Sections */
     section{padding:28px 0}
@@ -360,6 +386,421 @@
       line-height:1.7;
     }
     ul.bullets li{margin:6px 0}
+
+    /* Interactive Architecture */
+    .archGrid{
+      display:grid;
+      grid-template-columns:1.2fr .8fr;
+      gap:14px;
+      align-items:stretch;
+    }
+    @media (max-width: 980px){.archGrid{grid-template-columns:1fr}}
+    .archCanvas{
+      border-radius:var(--r2);
+      border:1px solid rgba(255,255,255,.12);
+      background:rgba(255,255,255,.04);
+      box-shadow:var(--shadow2);
+      padding:14px;
+      overflow:hidden;
+    }
+    .archSide{
+      border-radius:var(--r2);
+      border:1px solid rgba(255,255,255,.12);
+      background:rgba(255,255,255,.05);
+      box-shadow:var(--shadow2);
+      padding:16px;
+    }
+    .archSide .title{
+      font-size:13px; color:var(--muted);
+      letter-spacing:.08em; text-transform:uppercase;
+      margin:0 0 10px;
+    }
+    .archSide h3{margin:0 0 8px; font-size:16px}
+    .archSide p{margin:0; color:var(--muted); font-size:13px; line-height:1.7}
+    .archSide .mini{
+      margin-top:12px;
+      border:1px solid rgba(255,255,255,.10);
+      background:rgba(0,0,0,.22);
+      border-radius:16px;
+      padding:12px;
+    }
+    .archSide ul{margin:0; padding-left:18px; color:var(--muted); font-size:13px; line-height:1.7}
+    .archHint{margin-top:10px; color:var(--muted2); font-size:12px}
+
+    /* SVG styles */
+    .archSvg text{font-family:var(--sans)}
+    .node{cursor:pointer; transition:200ms ease}
+    .node rect{
+      fill:rgba(255,255,255,.06);
+      stroke:rgba(255,255,255,.16);
+      stroke-width:1.2;
+    }
+    .node:hover rect{fill:rgba(255,255,255,.10); stroke:rgba(255,255,255,.24)}
+    .node.active rect{fill:rgba(34,211,238,.14); stroke:rgba(34,211,238,.42)}
+    .node.active.orange rect{ fill:rgba(251,146,60,.12); stroke:rgba(251,146,60,.42); }
+    .node.active.purple rect{ fill:rgba(168,85,247,.12); stroke:rgba(168,85,247,.42); }
+    .edge{stroke:rgba(255,255,255,.18); stroke-width:2; marker-end:url(#arrow)}
+    .edge.active{stroke:rgba(34,211,238,.55)}
+
+    /* Case study */
+    details.case{
+      border-radius:var(--r);
+      border:1px solid rgba(255,255,255,.12);
+      background:rgba(255,255,255,.05);
+      box-shadow:var(--shadow2);
+      padding:14px 16px;
+    }
+    details.case summary{
+      cursor:pointer;
+      list-style:none;
+      display:flex; align-items:center; justify-content:space-between; gap:10px;
+      user-select:none;
+    }
+    details.case summary::-webkit-details-marker{display:none}
+    .caseTitle{font-size:15px; letter-spacing:-.01em}
+    .caseSub{color:var(--muted); font-size:13px; margin-top:6px; line-height:1.6}
+    .caseBody{margin-top:12px; color:var(--muted); font-size:13px; line-height:1.75}
+    .caseBody h4{margin:14px 0 8px; color:var(--text); font-size:13px; letter-spacing:.02em}
+    .caseBody code{font-family:var(--mono); font-size:12px}
+    .caseBody .mini{
+      border:1px solid rgba(255,255,255,.10);
+      background:rgba(0,0,0,.22);
+      border-radius:14px;
+      padding:10px 12px;
+      margin-top:10px;
+    }
+
+    footer{
+      padding:26px 0 36px;
+      border-top:1px solid rgba(255,255,255,.08);
+      color:var(--muted2);
+      font-size:12px;
+    }
+    .footerRow{
+      display:flex; align-items:center; justify-content:space-between; gap:12px;
+      flex-wrap:wrap;
+    }
+    .footerLinks{display:flex; gap:12px; flex-wrap:wrap}
+    .footerLinks a{
+      color:var(--muted);
+      padding:8px 10px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.10);
+      background:rgba(255,255,255,.04);
+    }
+    .footerLinks a:hover{color:var(--text); border-color:rgba(255,255,255,.16); background:rgba(255,255,255,.06)}
+
+    /* Scroll reveal */
+    .reveal{opacity:0; transform:translateY(14px); transition:opacity 520ms ease, transform 520ms ease;}
+    .reveal.in{opacity:1; transform:translateY(0);}
+
+    @media (prefers-reduced-motion: reduce){
+      html{scroll-behavior:auto}
+      .card:hover,.btn:hover{transform:none !important}
+      .reveal{opacity:1; transform:none; transition:none}
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+
+    <!-- Header -->
+    <header>
+      <div class="container">
+        <div class="nav">
+          <div class="brand">
+            <div class="badge" aria-hidden="true">PP</div>
+            <div class="name">
+              <strong>PREET PATEL</strong>
+              <span>Backend • Distributed Systems • Reliability</span>
+            </div>
+          </div>
+
+          <nav class="links" aria-label="Primary">
+            <a href="#about">About</a>
+            <a href="#proof">Proof</a>
+            <a href="#architecture">Architecture</a>
+            <a href="#skills">Skills</a>
+            <a href="#work">Work</a>
+            <a href="#projects">Projects</a>
+            <a href="#deepdive">Deep Dive</a>
+            <a href="#contact">Contact</a>
+          </nav>
+
+          <div class="actions">
+            <button class="btn hamburger" id="menuBtn" type="button" aria-expanded="false" aria-controls="mobileMenu">
+              <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16v2H4V6zm0 5h16v2H4v-2zm0 5h16v2H4v-2z"/></svg>
+              Menu
+            </button>
+
+            <button class="btn" id="copyLinkedIn" type="button" title="Copy LinkedIn">
+              <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.45 20.45h-3.55v-5.56c0-1.33-.03-3.04-1.86-3.04-1.86 0-2.14 1.45-2.14 2.95v5.65H7.35V9h3.41v1.56h.05c.48-.9 1.65-1.86 3.4-1.86 3.64 0 4.31 2.4 4.31 5.52v6.23zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM3.56 20.45h3.56V9H3.56v11.45zM22.23 0H1.77C.79 0 0 .78 0 1.74v20.52C0 23.22.8 24 1.77 24h20.46c.98 0 1.77-.78 1.77-1.74V1.74C24 .78 23.2 0 22.23 0z"/></svg>
+              Copy LinkedIn
+            </button>
+
+            <button class="btn" id="copyGitHub" type="button" title="Copy GitHub">
+              <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 .5C5.73.5.75 5.48.75 11.75c0 4.88 3.16 9.02 7.55 10.49.55.1.75-.24.75-.53v-1.86c-3.07.67-3.72-1.32-3.72-1.32-.5-1.28-1.22-1.62-1.22-1.62-1-.68.08-.67.08-.67 1.1.08 1.68 1.14 1.68 1.14.98 1.67 2.57 1.19 3.2.91.1-.71.38-1.19.69-1.47-2.45-.28-5.03-1.23-5.03-5.49 0-1.21.43-2.2 1.14-2.98-.11-.28-.5-1.4.11-2.92 0 0 .94-.3 3.08 1.14a10.7 10.7 0 0 1 2.8-.38c.95 0 1.9.13 2.8.38 2.14-1.44 3.08-1.14 3.08-1.14.61 1.52.22 2.64.11 2.92.71.78 1.14 1.77 1.14 2.98 0 4.27-2.59 5.21-5.06 5.48.39.34.74 1.01.74 2.03v3.01c0 .29.2.64.76.53 4.38-1.47 7.54-5.61 7.54-10.49C23.25 5.48 18.27.5 12 .5z"/></svg>
+              Copy GitHub
+            </button>
+
+            <a class="btn primary" href="Preet_Patel_Resume.pdf" download>
+              <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 16l4-5h-3V4h-2v7H8l4 5zm8 2H4v2h16v-2z"/></svg>
+              Resume
+            </a>
+          </div>
+        </div>
+
+        <!-- Mobile menu -->
+        <div id="mobileMenu" class="mobileSheet" aria-label="Mobile navigation">
+          <div class="grid">
+            <a href="#about">About</a>
+            <a href="#proof">Proof</a>
+            <a href="#architecture">Architecture</a>
+            <a href="#skills">Skills</a>
+            <a href="#work">Work</a>
+            <a href="#projects">Projects</a>
+            <a href="#deepdive">Deep Dive</a>
+            <a href="#contact">Contact</a>
+
+            <!-- ✅ Copy buttons moved here for mobile -->
+            <button class="btn" id="copyLinkedInMobile" type="button">Copy LinkedIn</button>
+            <button class="btn" id="copyGitHubMobile" type="button">Copy GitHub</button>
+
+            <a href="Preet_Patel_Resume.pdf" download>Download Resume</a>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Hero -->
+    <main id="about" class="hero">
+      <div class="container">
+        <div class="heroGrid">
+          <div class="heroCard reveal">
+            <div class="heroInner">
+              <div class="kicker"><span class="dot" aria-hidden="true"></span> Software Engineer • Backend / Systems • Jersey City, NJ</div>
+
+              <h1>Build services that stay fast, observable, and easy to operate.</h1>
+
+              <p class="subtitle">
+                I’m a backend-focused engineer working across microservices, Postgres, queues/caching, and production telemetry.
+                I optimize for <b>reliability</b>, <b>clean APIs</b>, and <b>fast root-cause analysis</b>—and I ship with disciplined CI/CD.
+              </p>
+
+              <div class="chips" aria-label="Highlights">
+                <span class="chip">Microservices • API Contracts</span>
+                <span class="chip">PostgreSQL • Caching • Queues</span>
+                <span class="chip">Observability (Logs • Metrics • Tracing)</span>
+                <span class="chip">AWS • Docker • CI/CD</span>
+                <span class="chip">LLM/RAG • Evaluations</span>
+              </div>
+
+              <div class="heroCTA">
+                <button class="btn" id="copyEmail" type="button" title="Copy email">
+                  <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm4 4H8c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 18H8V7h12v16z"/></svg>
+                  Copy Email
+                </button>
+
+                <a class="btn" href="https://www.linkedin.com/in/preet-patel2861" target="_blank" rel="noopener noreferrer">
+                  <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.45 20.45h-3.55v-5.56c0-1.33-.03-3.04-1.86-3.04-1.86 0-2.14 1.45-2.14 2.95v5.65H7.35V9h3.41v1.56h.05c.48-.9 1.65-1.86 3.4-1.86 3.64 0 4.31 2.4 4.31 5.52v6.23zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM3.56 20.45h3.56V9H3.56v11.45zM22.23 0H1.77C.79 0 0 .78 0 1.74v20.52C0 23.22.8 24 1.77 24h20.46c.98 0 1.77-.78 1.77-1.74V1.74C24 .78 23.2 0 22.23 0z"/></svg>
+                  LinkedIn
+                </a>
+
+                <a class="btn" href="#projects">
+                  <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17l-5-5h3V7h4v5h3l-5 5zM5 19h14v2H5v-2z"/></svg>
+                  View Projects
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <aside class="rail reveal" aria-label="Snapshot">
+            <div class="railTitle">Snapshot</div>
+
+            <div class="kv">
+              <div class="railCard">
+                <strong>On-call / Debug</strong>
+                <p>Reduced time-to-diagnose by ~45% via tracing + telemetry patterns.</p>
+              </div>
+              <div class="railCard">
+                <strong>Performance</strong>
+                <p>Reduced backend P50 latency ~30% via query optimization + caching.</p>
+              </div>
+            </div>
+
+            <div class="railCard">
+              <strong>Shipping</strong>
+              <p>Cut deployment overhead ~50% using Docker + GitHub Actions CI/CD.</p>
+            </div>
+
+            <div class="railCard">
+              <strong>Contact</strong>
+              <p style="display:flex; flex-wrap:wrap; gap:8px; margin-top:8px;">
+                <a class="pill" href="mailto:preetpatel2861@gmail.com">preetpatel2861@gmail.com</a>
+                <a class="pill" href="tel:+19296427701">+1 (929) 642-7701</a>
+              </p>
+            </div>
+          </aside>
+        </div>
+
+        <!-- Proof Strip (with counters) -->
+        <div id="proof" class="proofStrip" aria-label="Proof strip">
+          <div class="metric reveal">
+            <div class="label">Latency</div>
+            <div class="value"><span class="count" data-from="0" data-to="30" data-suffix="%">0%</span> P50 ↓</div>
+            <p class="desc">Query planning + caching improvements across backend services.</p>
+          </div>
+
+          <div class="metric reveal">
+            <div class="label">Incident response</div>
+            <div class="value"><span class="count" data-from="0" data-to="45" data-suffix="%">0%</span> TTD ↓</div>
+            <p class="desc">Tracing + structured telemetry for faster root-cause analysis.</p>
+          </div>
+
+          <div class="metric reveal">
+            <div class="label">Delivery</div>
+            <div class="value"><span class="count" data-from="0" data-to="50" data-suffix="%">0%</span> Overhead ↓</div>
+            <p class="desc">Docker + GitHub Actions pipelines for safer, faster deployments.</p>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- ✅ Rest of your sections unchanged -->
+    <!-- Architecture, Skills, Work, Projects, Deep Dive, Contact, Footer -->
+    <!-- Keep exactly as you pasted (no need to re-paste again). -->
+
+    <footer>
+      <div class="container">
+        <div class="footerRow">
+          <div>© <span id="year"></span> Preet Patel • Dependency-free (no CDN), stable deploy.</div>
+          <div class="footerLinks">
+            <a href="#about">Top</a>
+            <a href="Preet_Patel_Resume.pdf" download>Resume</a>
+            <a href="https://github.com/Preet2862001" target="_blank" rel="noopener noreferrer">GitHub</a>
+            <a href="mailto:preetpatel2861@gmail.com">Email</a>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    // Year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Mobile menu
+    const btn = document.getElementById('menuBtn');
+    const sheet = document.getElementById('mobileMenu');
+    if (btn && sheet) {
+      btn.addEventListener('click', () => {
+        const open = sheet.classList.toggle('open');
+        btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+      });
+      sheet.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+        sheet.classList.remove('open');
+        btn.setAttribute('aria-expanded', 'false');
+      }));
+    }
+
+    // Clipboard helper
+    async function copyText(text, buttonEl, successLabel) {
+      const prev = buttonEl.textContent;
+      try {
+        await navigator.clipboard.writeText(text);
+        buttonEl.textContent = successLabel;
+        setTimeout(() => buttonEl.textContent = prev, 1200);
+      } catch {
+        buttonEl.textContent = "Copy failed";
+        setTimeout(() => buttonEl.textContent = prev, 1200);
+      }
+    }
+
+    // Copy buttons
+    const copyEmailBtn = document.getElementById('copyEmail');
+    if (copyEmailBtn) copyEmailBtn.addEventListener('click', () =>
+      copyText("preetpatel2861@gmail.com", copyEmailBtn, "Copied ✓")
+    );
+
+    const copyLinkedInBtn = document.getElementById('copyLinkedIn');
+    if (copyLinkedInBtn) copyLinkedInBtn.addEventListener('click', () =>
+      copyText("https://www.linkedin.com/in/preet-patel2861", copyLinkedInBtn, "Copied ✓")
+    );
+
+    const copyGitHubBtn = document.getElementById('copyGitHub');
+    if (copyGitHubBtn) copyGitHubBtn.addEventListener('click', () =>
+      copyText("https://github.com/Preet2862001", copyGitHubBtn, "Copied ✓")
+    );
+
+    // ✅ Mobile copy buttons (inside menu)
+    const copyLinkedInMobile = document.getElementById('copyLinkedInMobile');
+    if (copyLinkedInMobile) copyLinkedInMobile.addEventListener('click', () =>
+      copyText("https://www.linkedin.com/in/preet-patel2861", copyLinkedInMobile, "Copied ✓")
+    );
+
+    const copyGitHubMobile = document.getElementById('copyGitHubMobile');
+    if (copyGitHubMobile) copyGitHubMobile.addEventListener('click', () =>
+      copyText("https://github.com/Preet2862001", copyGitHubMobile, "Copied ✓")
+    );
+
+    // Scrollspy
+    const navAnchors = Array.from(document.querySelectorAll('nav.links a'));
+    const ids = navAnchors.map(a => a.getAttribute('href')).filter(Boolean).map(h => h.replace('#',''));
+    const sections = ids.map(id => document.getElementById(id)).filter(Boolean);
+
+    const setActive = (id) => {
+      navAnchors.forEach(a => {
+        a.dataset.active = (a.getAttribute('href') === '#' + id) ? 'true' : 'false';
+      });
+    };
+
+    const spy = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) setActive(e.target.id); });
+    }, { threshold: 0.35 });
+
+    sections.forEach(s => spy.observe(s));
+    setActive('about');
+
+    // Scroll reveal
+    const reveals = Array.from(document.querySelectorAll('.reveal'));
+    const revObs = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('in');
+          revObs.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.12 });
+
+    reveals.forEach(el => revObs.observe(el));
+
+    // Proof counters (animate once)
+    const counters = Array.from(document.querySelectorAll('.count'));
+    const counterObs = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (!e.isIntersecting) return;
+        const el = e.target;
+        counterObs.unobserve(el);
+        const from = Number(el.dataset.from || "0");
+        const to = Number(el.dataset.to || "0");
+        const suffix = el.dataset.suffix || "";
+        const dur = 650;
+        const start = performance.now();
+        function tick(t){
+          const p = Math.min(1, (t - start) / dur);
+          const val = Math.round(from + (to - from) * (1 - Math.pow(1 - p, 3)));
+          el.textContent = String(val) + suffix;
+          if (p < 1) requestAnimationFrame(tick);
+        }
+        requestAnimationFrame(tick);
+      });
+    }, { threshold: 0.6 });
+
+    counters.forEach(c => counterObs.observe(c));
+
+    // Interactive architecture (keep your existing block)
+    // (no changes needed)
 
     /* Interactive Architecture */
     .archGrid{
